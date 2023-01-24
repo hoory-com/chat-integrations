@@ -9,6 +9,7 @@ import PaymentInfo from "./integrations/ucraft/PaymentInfo";
 import ProjectName from "./integrations/ucraft/ProjectName";
 import LikedWebsite from "./integrations/ucraft/LikedWebsite";
 import WebsiteUrl from "./integrations/ucraft/WebsiteUrl";
+import { FormType } from "./constants";
 
 /**
  * Spring builder
@@ -39,31 +40,31 @@ function IntegrationWrapper(props: Props) {
     /**
      * Ucraft
      */
-    case "UCRAFT_LIKED_WEBSITE":
+    case FormType.UCRAFT_LIKED_WEBSITE:
       Component = <LikedWebsite />;
       break;
-    case "UCRAFT_PROJECT_NAME":
+    case FormType.UCRAFT_PROJECT_NAME:
       Component = <ProjectName />;
       break;
-    case "UCRAFT_BILLING":
+    case FormType.UCRAFT_BILLING:
       Component = <PaymentInfo />;
       break;
-    case "UCRAFT_DESIGN_TEMPLATE":
+    case FormType.UCRAFT_DESIGN_TEMPLATE:
       Component = <DesignTemplate />;
       break;
-    case "UCRAFT_WEBSITE_DESIGN":
+    case FormType.UCRAFT_WEBSITE_DESIGN:
       Component = <WebsiteDesign />;
       break;
-    case "UCRAFT_WEBSITE_URL":
+    case FormType.UCRAFT_WEBSITE_URL:
       Component = <WebsiteUrl />;
       break;
-    case "UCRAFT_PROJECT_LOGO":
+    case FormType.UCRAFT_PROJECT_LOGO:
       Component = <LogoUploader />;
       break;
-    case "UCRAFT_PROJECT_URL":
+    case FormType.UCRAFT_PROJECT_URL:
       Component = <ProjectUrl />;
       break;
-    case "UCRAFT_EMAIL":
+    case FormType.UCRAFT_EMAIL:
       Component = <UserEmail />;
       break;
 
