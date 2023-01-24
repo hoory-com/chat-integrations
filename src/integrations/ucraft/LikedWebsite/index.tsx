@@ -3,23 +3,24 @@ import { useTranslation } from "react-i18next";
 import {
   SSO_URL,
   AUTH_TOKEN_KEY,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import FormButton from "../../../../../FormButton";
-import { useRasaMessageContext } from "../../../context";
-import { useUpdateMessages } from "../../utils";
-import { ChatPagePostMessage } from "../../../../../../../constants";
-import { useFormsContext } from "../../FormsContext";
-import { ButtonsWrapper } from "../../styles";
+  ChatPagePostMessage,
+} from "constants/UCValues";
+import { FormButton } from "components";
+import { useUpdateMessages } from "hooks";
+import { useMessageContext } from "../../../contexts";
+import { toggleAiTemplateIframe } from "../../../post/ucraft";
+import { ButtonsWrapper } from "../styles";
 
 function LikedWebsite() {
   const { t } = useTranslation("ui");
   const {
+    sendMessageHandler,
+    message,
+    color,
     field: { field_metadata, value },
-  } = useFormsContext();
+  } = useMessageContext();
   const [completed, setCompleted] = useState(Boolean(value));
   const { updateMessages } = useUpdateMessages();
-  const { sendMessageHandler, message, color, toggleAiTemplateIframe } =
-    useRasaMessageContext();
 
   const listener = useCallback(
     ({
@@ -67,15 +68,14 @@ function LikedWebsite() {
   };
 
   const handleNotNow = () => {
-    toggleAiTemplateIframe &&
-      toggleAiTemplateIframe({
-        data: {
-          address: SSO_URL,
-          token: localStorage.getItem(AUTH_TOKEN_KEY),
-          projectUrl: field_metadata?.projectUrl || "",
-          industry: field_metadata?.industry || "",
-        },
-      });
+    toggleAiTemplateIframe({
+      data: {
+        address: SSO_URL,
+        token: localStorage.getItem(AUTH_TOKEN_KEY),
+        projectUrl: field_metadata?.projectUrl || "",
+        industry: field_metadata?.industry || "",
+      },
+    });
   };
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import ImageSkeleton from "../../../../../Image/Skeleton";
+import ImageSkeleton from "components/Image/Skeleton";
 import { TemplateSkeletonBlock } from "./styles";
 
 function TemplateSkeleton() {

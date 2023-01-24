@@ -1,11 +1,9 @@
 import React from "react";
-import { PROJECT_URL, defaultProjectName } from "../../constants";
-import { useFormsContext } from "../../FormsContext";
+import { PROJECT_URL, defaultProjectName } from "constants/UCValues";
 import { UrlContent, DomainName, ProjectUrlWrapper } from "./styles";
 
 function ProjectUrl() {
   // TODO: need get projectUrl from socket response or from store
-  const { field } = useFormsContext();
   const projectUrl = "some-project-name";
 
   return (

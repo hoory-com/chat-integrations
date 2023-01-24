@@ -1,24 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLazyQuery } from "@apollo/client";
-
 import {
   SSO_URL,
   AUTH_TOKEN_KEY,
   UPLOADED_LOGO_BASE64_STORAGE_KEY,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import { anotherTemplate } from "../../constants";
-import { ChatPagePostMessage } from "../../../../../../../constants";
-import FormButton from "../../../../../FormButton";
-import CompletedIcon from "../CompletedIcon";
-import { getTemplateThumbnailQuery } from "../../../../../../../helpers/ucraftHelpers/graphQL/query";
-import defaultTemplateImage from "@hoory-com/shared-assets/images/placeholder.png";
-import { unAuthCategories } from "../../../../../../../helpers/ucraftHelpers/types";
-import LoaderTextSwitcher from "../LoaderTextSwitcher";
+  anotherTemplate,
+  ChatPagePostMessage,
+} from "constants/index";
+import { FormButton, CompletedIcon, LoaderTextSwitcher } from "components";
+import { getTemplateThumbnailQuery } from "helpers/ucraftHelpers/graphQL/query";
+import { unAuthCategories } from "helpers/ucraftHelpers/types";
+import defaultTemplateImage from "assets/images/placeholder.png";
 import TemplateSkeleton from "./TemplateSkeleton";
-import { useRasaMessageContext } from "../../../context";
-import { useUpdateMessages } from "../../utils";
-import { useFormsContext } from "../../FormsContext";
 import {
   TemplateContainer,
   TemplateBlock,
@@ -31,6 +25,12 @@ import {
   TemplateInfo,
   TemplateIndustry,
 } from "./styles";
+import { useMessageContext } from "../../../contexts";
+import { useUpdateMessages } from "../../../hooks/useUpdateMessage";
+import {
+  togglePaymentIframe,
+  toggleTemplatesIframe,
+} from "../../../post/ucraft";
 
 interface ITemplate {
   id: string;
@@ -46,20 +46,13 @@ const initTemplate = {
 
 function DesignTemplate() {
   const { t } = useTranslation("ui");
-  const { field } = useFormsContext();
+  const { field, sendMessageHandler, color, message } = useMessageContext();
   const [template, setTemplate] = useState<ITemplate>(
     field.value ? JSON.parse(field.value) : initTemplate
   );
   const [errorMsg, setErrorMsg] = useState("");
   const [completed, setCompleted] = useState(Boolean(field.value));
   const { updateMessages } = useUpdateMessages();
-  const {
-    sendMessageHandler,
-    color,
-    togglePaymentIframe,
-    toggleTemplatesIframe,
-    message,
-  } = useRasaMessageContext();
   const [getTemplateData, { data, error, loading }] = useLazyQuery(
     getTemplateThumbnailQuery
   );
@@ -142,25 +135,23 @@ function DesignTemplate() {
       logo: localStorage.getItem(UPLOADED_LOGO_BASE64_STORAGE_KEY) || "",
     };
 
-    togglePaymentIframe &&
-      togglePaymentIframe({
-        data: {
-          address: SSO_URL,
-          token: localStorage.getItem(AUTH_TOKEN_KEY),
-          field_metadata: { ...projectData },
-        },
-      });
+    togglePaymentIframe({
+      data: {
+        address: SSO_URL,
+        token: localStorage.getItem(AUTH_TOKEN_KEY),
+        field_metadata: { ...projectData },
+      },
+    });
   };
 
   const handleAnotherTemplate = () => {
-    toggleTemplatesIframe &&
-      toggleTemplatesIframe({
-        data: {
-          address: SSO_URL,
-          token: localStorage.getItem(AUTH_TOKEN_KEY),
-          anotherTemplate: anotherTemplate,
-        },
-      });
+    toggleTemplatesIframe({
+      data: {
+        address: SSO_URL,
+        token: localStorage.getItem(AUTH_TOKEN_KEY),
+        anotherTemplate: anotherTemplate,
+      },
+    });
     setErrorMsg("");
     removeListener();
   };

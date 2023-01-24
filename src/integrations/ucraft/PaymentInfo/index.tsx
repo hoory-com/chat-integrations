@@ -1,16 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import FormButton from "../../../../../FormButton";
-import { useRasaMessageContext } from "../../../context";
-import { redirectToDashboard } from "../../../../../../../helpers/ucraftHelpers";
-import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../../../../../../helpers/ucraftHelpers/constants";
-import { useFormsContext } from "../../FormsContext";
+import { FormButton } from "components";
+import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "constants/UCValues";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
+import { useMessageContext } from "../../../contexts";
+import { redirectToDashboard } from "helpers/ucraftHelpers";
 
 function PaymentInfo() {
   const { t } = useTranslation("ui");
-  const { field } = useFormsContext();
-  const { color } = useRasaMessageContext();
+  const { color, field } = useMessageContext();
 
   function navigateToDashboard() {
     localStorage.removeItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);

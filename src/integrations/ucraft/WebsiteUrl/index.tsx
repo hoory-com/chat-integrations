@@ -1,32 +1,29 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
-import {
-  AUTH_TOKEN_KEY,
-  SSO_URL,
-  FIELD_SKIPPED,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import { isUrl } from "../../../../../../../helpers";
-import FormButton from "../../../../../FormButton";
-import CompletedIcon from "../CompletedIcon";
-import LoaderTextSwitcher from "../LoaderTextSwitcher";
-import { useRasaMessageContext } from "../../../context";
+import { AUTH_TOKEN_KEY, SSO_URL, FIELD_SKIPPED } from "constants/UCValues";
+import { isUrl } from "helpers/validationHelpers";
+import { FormButton, LoaderTextSwitcher, CompletedIcon } from "components";
 import { getTopTemplateId, urlCheck } from "./helpers";
-import axiosAiApi from "../../../../../../../helpers/ucraftHelpers/axiosAiApi";
 import { AiErrorType, UrlData, UrlResponse } from "./types";
-import { useUpdateMessages } from "../../utils";
-import { ChatPagePostMessage, FormType } from "../../../../../../../constants";
-import { useFormsContext } from "../../FormsContext";
-import { ErrorMessage, StyledSkipButton } from "../../styles";
+import { ChatPagePostMessage, FormType } from "constants/UCValues";
 import { InputWrapper } from "./styles";
+import axiosAiApi from "../../../helpers/ucraftHelpers/axiosAiApi";
+import { useMessageContext } from "../../../contexts";
+import { useUpdateMessages } from "../../../hooks";
+import { toggleAiTemplateByIdIframe } from "../../../post/ucraft";
+import { ErrorMessage, StyledSkipButton } from "../styles";
 
 function WebsiteUrl() {
   const { t } = useTranslation("ui");
   const {
+    sendMessageHandler,
+    color,
+    message,
     field: { field_metadata, value, type, required },
     isLastField,
-  } = useFormsContext();
+  } = useMessageContext();
   const [websiteUrl, setWebsiteUrl] = useState(value || "");
   const { updateMessages } = useUpdateMessages();
   const [loader, setLoader] = useState(false);
@@ -37,8 +34,6 @@ function WebsiteUrl() {
   );
   const [isSkipped, setIsSkipped] = useState(value === FIELD_SKIPPED);
   const [disabled, setDisabled] = useState(isSkipped || completed);
-  const { sendMessageHandler, color, toggleAiTemplateByIdIframe, message } =
-    useRasaMessageContext();
 
   const listener = useCallback(
     ({
@@ -72,6 +67,7 @@ function WebsiteUrl() {
       window.addEventListener("message", listener, false);
       return () => window.removeEventListener("message", listener);
     }
+    return () => {};
   }, [websiteUrl, type]);
 
   const onUrlInput = debounce(async (siteUrl: string) => {
@@ -120,16 +116,15 @@ function WebsiteUrl() {
 
   const handleFinish = async () => {
     if (type === FormType.UCRAFT_WEBSITE_URL) {
-      toggleAiTemplateByIdIframe &&
-        toggleAiTemplateByIdIframe({
-          data: {
-            address: SSO_URL,
-            templateId: likeTemplateId,
-            token: localStorage.getItem(AUTH_TOKEN_KEY),
-            projectUrl: field_metadata?.projectUrl || "",
-            industry: field_metadata?.industry || "",
-          },
-        });
+      toggleAiTemplateByIdIframe({
+        data: {
+          address: SSO_URL,
+          templateId: likeTemplateId,
+          token: localStorage.getItem(AUTH_TOKEN_KEY),
+          projectUrl: field_metadata?.projectUrl || "",
+          industry: field_metadata?.industry || "",
+        },
+      });
       setDisabled(true);
       setCompleted(true);
     } else {
@@ -188,7 +183,9 @@ function WebsiteUrl() {
         suffix={<CompletedIcon completed={completed} />}
         error={errorText ? "error" : undefined}
         help={errorText ? <ErrorMessage>{t(errorText)}</ErrorMessage> : null}
-        onChange={(e) => onUrlInput(e.target.value)}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          onUrlInput(event.target.value)
+        }
         hasFeedback={false}
         rasaInput
         disabled={disabled || loader}

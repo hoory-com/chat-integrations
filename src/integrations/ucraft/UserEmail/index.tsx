@@ -8,35 +8,34 @@ import { useLocation } from "react-router-dom";
 import { parse } from "query-string";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
-import InputCheckIcon from "@hoory-com/shared-assets/icons/InputCheckIcon/index.svg";
-import { ChatPagePostMessage, FormType } from "../../../../../../../constants";
-import FormInput from "../../../../../FormInput";
-import { isEmail } from "../../../../../../../helpers";
-import { ssoServices } from "../../../../../../../helpers/ucraftHelpers";
+import InputCheckIcon from "assets/svg/inputCheckIcon.svg";
+
 import {
-  ErrorCodes,
-  ErrorResponse,
-} from "../../../../../../../helpers/ucraftHelpers/types";
-import FormButton from "../../../../../FormButton";
-import LoaderTextSwitcher from "../LoaderTextSwitcher";
-import { EMAIL_MAX_LENGTH } from "../../../../../../../constants";
-import {
-  ACCOUNTS_URL,
-  AUTH_TOKEN_KEY,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import { useRasaMessageContext } from "../../../context";
-import { useFocus } from "../../../../../../../hooks";
-import { useUpdateMessages } from "../../utils";
-import { useFormsContext } from "../../FormsContext";
-import { ErrorMessage } from "./styles";
+  ChatPagePostMessage,
+  FormType,
+  EMAIL_MAX_LENGTH,
+} from "constants/UCValues";
+import { FormInput, FormButton, LoaderTextSwitcher } from "components";
+import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "helpers/ucraftHelpers/constants";
+import { isEmail } from "helpers/validationHelpers";
+import { useFocus } from "hooks";
+import { ssoServices } from "helpers/ucraftHelpers";
+import { ErrorCodes } from "helpers/ucraftHelpers/types";
+import type { ErrorResponse } from "constants/UCTypes";
+import { useMessageContext } from "contexts";
+import { toggleSignInIframe } from "../../../post/ucraft";
+import { useUpdateMessages } from "../../../hooks";
+import { ErrorMessage } from "../styles";
 
 function UserEmail() {
   const [form] = Form.useForm();
-  const { sendMessageHandler, toggleSignInIframe, color, message, visitor } =
-    useRasaMessageContext();
   const {
+    sendMessageHandler,
+    color,
+    message,
+    visitor,
     field: { value, field_metadata, type },
-  } = useFormsContext();
+  } = useMessageContext();
   const { search } = useLocation();
   const { email: currentEmail } = parse(search);
   const isUcraftForm = type === FormType.UCRAFT_EMAIL;
@@ -100,7 +99,7 @@ function UserEmail() {
 
   useEffect(() => {
     if (isUcraftForm && currentEmail) {
-      setEmail(currentEmail);
+      setEmail(String(currentEmail));
     }
   }, [isUcraftForm, currentEmail]);
 
@@ -115,7 +114,7 @@ function UserEmail() {
   );
 
   const openSignInIframe = () => {
-    if (emailExist && toggleSignInIframe) {
+    if (emailExist) {
       toggleSignInIframe({ data: { address: ACCOUNTS_URL } });
     }
   };

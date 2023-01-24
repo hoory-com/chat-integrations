@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../../../../../helpers";
+import { theme } from "styled-components-helpers";
 
 export const TemplateContainer = styled.div`
   display: flex;

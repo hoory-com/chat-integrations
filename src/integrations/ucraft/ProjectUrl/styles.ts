@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Typography } from "antd";
-import { theme } from "../../../../../../../helpers";
+import { theme } from "styled-components-helpers";
 
 const { Paragraph } = Typography;
 

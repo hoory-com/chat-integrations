@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import FormButton from "../../../../../FormButton";
-import { useRasaMessageContext } from "../../../context";
+import { FormButton } from "components";
 import {
+  anotherTemplate,
+  ChatPagePostMessage,
   SSO_URL,
   AUTH_TOKEN_KEY,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import { ChatPagePostMessage } from "../../../../../../../constants";
-import { anotherTemplate } from "../../constants";
-import { useUpdateMessages } from "../../utils";
-import { useFormsContext } from "../../FormsContext";
-import { ButtonsWrapper } from "../../styles";
+} from "constants/UCValues";
+import { useMessageContext } from "contexts";
+import { useUpdateMessages } from "hooks";
+import { toggleTemplatesIframe } from "post/ucraft";
+import { ButtonsWrapper } from "../styles";
 
 enum DesignButtons {
   AI_DESIGN = "aiDesign",
@@ -20,13 +20,14 @@ enum DesignButtons {
 function WebsiteDesign() {
   const { t } = useTranslation("ui");
   const {
+    sendMessageHandler,
+    color,
+    message,
     field: { value },
-  } = useFormsContext();
+  } = useMessageContext();
   const [completed, setCompleted] = useState(Boolean(value));
   const [clickedBtn, setClickedBtn] = useState<DesignButtons | null>(null);
   const { updateMessages } = useUpdateMessages();
-  const { sendMessageHandler, color, toggleTemplatesIframe, message } =
-    useRasaMessageContext();
 
   const listener = useCallback(
     ({
@@ -81,13 +82,12 @@ function WebsiteDesign() {
 
   const handleTemplates = () => {
     setClickedBtn(DesignButtons.TEMPLATE_DESIGN);
-    toggleTemplatesIframe &&
-      toggleTemplatesIframe({
-        data: {
-          address: SSO_URL,
-          token: localStorage.getItem(AUTH_TOKEN_KEY),
-        },
-      });
+    toggleTemplatesIframe({
+      data: {
+        address: SSO_URL,
+        token: localStorage.getItem(AUTH_TOKEN_KEY),
+      },
+    });
   };
 
   return (

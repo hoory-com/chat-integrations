@@ -2,37 +2,36 @@ import React, { useState, useCallback, ChangeEventHandler } from "react";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@apollo/client";
-import { generateProjectNameMutation } from "../../../../../../../helpers/ucraftHelpers/graphQL/mutation";
 import {
-  Error,
-  unAuthCategories,
-} from "../../../../../../../helpers/ucraftHelpers/types";
-import FormInput from "../../../../../FormInput";
-import FormButton from "../../../../../FormButton";
-import CompletedIcon from "../CompletedIcon";
-import LoaderTextSwitcher from "../LoaderTextSwitcher";
-import { useRasaMessageContext } from "../../../context";
-import { useFocus } from "../../../../../../../hooks";
-import { useUpdateMessages } from "../../utils";
-import { useFormsContext } from "../../FormsContext";
-import { ErrorMessage } from "../../styles";
+  LoaderTextSwitcher,
+  FormButton,
+  FormInput,
+  CompletedIcon,
+} from "components";
+import { useFocus, useUpdateMessages } from "hooks";
+import { useMessageContext } from "contexts";
+import { generateProjectNameMutation } from "helpers/ucraftHelpers/graphQL/mutation";
+import { unAuthCategories } from "helpers/ucraftHelpers/types";
+import { ErrorMessage } from "../styles";
 
 function ProjectName() {
   const [form] = Form.useForm();
-  const {
-    field: { value },
-  } = useFormsContext();
   const { t } = useTranslation("ui");
   const [generateProjectName] = useMutation(generateProjectNameMutation);
+  const {
+    sendMessageHandler,
+    color,
+    message,
+    field: { value },
+  } = useMessageContext();
   const [completed, setCompleted] = useState(Boolean(value));
   const [disabled, setDisabled] = useState(Boolean(value));
   const [loading, setLoading] = useState(false);
   const [projectName, setProjectName] = useState(value || "");
   const [errorText, setErrorText] = useState("");
   const [isError, setIsError] = useState(false);
-  const { updateMessages } = useUpdateMessages();
 
-  const { sendMessageHandler, color, message } = useRasaMessageContext();
+  const { updateMessages } = useUpdateMessages();
   const focusRef = useFocus(null);
 
   const onNameInput: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {

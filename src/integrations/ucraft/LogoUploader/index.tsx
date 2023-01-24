@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRasaMessageContext } from "../../../context";
-import Base64Uploader from "../../../../../Base64Uploader";
+import { Base64Uploader } from "components";
 import {
   UPLOADED_LOGO_BASE64_STORAGE_KEY,
   RASA_NO_LOGO,
   RASA_UPLOAD_COMPLETED,
-} from "../../../../../../../helpers/ucraftHelpers/constants";
-import { useUpdateMessages } from "../../utils";
-import { useFormsContext } from "../../FormsContext";
-import { StyledButton } from "../../../styles";
+} from "constants/UCValues";
+import { useMessageContext } from "contexts";
+import { useUpdateMessages } from "../../../hooks";
+import { StyledButton } from "./styles";
 
 function LogoUploader() {
   const { t } = useTranslation("ui");
   const {
+    sendMessageHandler,
+    color,
+    message,
     field: { value },
-  } = useFormsContext();
-  const { sendMessageHandler, color, message } = useRasaMessageContext();
+  } = useMessageContext();
   const { updateMessages } = useUpdateMessages();
   const logo = localStorage.getItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);
   const [uploadedLogo, setUploadedLogo] = useState(logo || "");
