@@ -1,5 +1,5 @@
-import { default as isEmailValid } from "validator/lib/isEmail";
-import { default as isUrlValid } from "validator/lib/isURL";
+import { default as isEmailValid } from "validator/es/lib/isEmail";
+import { default as isUrlValid } from "validator/es/lib/isURL";
 import {
   PROTOCOL,
   REPLACE_ASTERISK_DOT_TEXT,

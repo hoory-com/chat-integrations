@@ -42,6 +42,7 @@
     "@types/react-dom": "^17.0.5",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.0",
+    "@types/validator": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "antd": "^5.1.1",
