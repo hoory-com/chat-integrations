@@ -1,45 +1,47 @@
+import { FormType } from "./UCValues";
+
 export type User = {
-  id: string,
-  firstName: string,
-  lastName: string,
-  avatar: string,
-  city: string,
-  country: string,
-  locationTime: string,
-  type: number,
-  email: string,
-  phone: string,
-  agreement: boolean,
-  status: string,
-  sidebarOrderList: Array<Record<string, any>>,
-  rolesList: Array<string>,
-  hasRealFirstName: boolean,
-  hasRealLastName: boolean,
-  isDeleted: boolean,
-  isBlocked: boolean,
-  emailSubscription: boolean,
-  firstSeen: string,
-  lastSeen: string,
-  hasPassword: boolean,
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  city: string;
+  country: string;
+  locationTime: string;
+  type: number;
+  email: string;
+  phone: string;
+  agreement: boolean;
+  status: string;
+  sidebarOrderList: Array<Record<string, any>>;
+  rolesList: Array<string>;
+  hasRealFirstName: boolean;
+  hasRealLastName: boolean;
+  isDeleted: boolean;
+  isBlocked: boolean;
+  emailSubscription: boolean;
+  firstSeen: string;
+  lastSeen: string;
+  hasPassword: boolean;
 };
 
 export enum RasaMessageType {
-  ANSWER = 'ANSWER',
-  FORM = 'FORM',
-  BUTTON = 'BUTTON',
-  DELAY = 'DELAY',
-  FORM_CS = 'FORM_CS',
+  ANSWER = "ANSWER",
+  FORM = "FORM",
+  BUTTON = "BUTTON",
+  DELAY = "DELAY",
+  FORM_CS = "FORM_CS",
 }
 
 enum ButtonType {
-  ConnectToSupport = 'CONNECT_TO_SUPPORT',
-  Url = 'URL',
+  ConnectToSupport = "CONNECT_TO_SUPPORT",
+  Url = "URL",
 }
 
 export const RasaOptionsValues = {
-  [ButtonType.Url]: '',
-  [ButtonType.ConnectToSupport]: '/trigger_handoff'
-}
+  [ButtonType.Url]: "",
+  [ButtonType.ConnectToSupport]: "/trigger_handoff",
+};
 
 export type RasaOptions = {
   title: string;
@@ -48,8 +50,8 @@ export type RasaOptions = {
 };
 
 enum AttachmentType {
-  PUBLIC = 'PUBLIC',
-  PRIVATE = 'PRIVATE',
+  PUBLIC = "PUBLIC",
+  PRIVATE = "PRIVATE",
 }
 
 type Attachment = {
@@ -71,7 +73,7 @@ export type RasaFieldType = {
   value: string;
   required: boolean;
   custom_provider: string;
-  custom_type: string;
+  custom_type: FormType;
 };
 
 export type RasaSockedMessage = {
@@ -105,25 +107,25 @@ export enum MessageType {
 }
 
 export type MessageResponse = {
-  id: string,
-  type: MessageType,
-  body: string,
-  createdAt: string,
-  createdBy?: User,
-  notificationType: any,
-  paramsList: Array<string>,
-  actions: string,
-  conversationId: string,
-  conversation: string,
-  draft: string,
-  knowledgeBaseUri: string,
-  knowledgeBaseHighlightStart: number,
-  knowledgeBaseHighlightEnd: number,
-  knowledgeBaseImageUrl: string,
-  knowledgeBaseTitle: string,
-  googleUrl: string,
-  googleSearchText: string,
-  disabled: boolean,
-  deliveryType: string,
-  attachmentsList: Array<Attachment>,
-}
+  id: string;
+  type: MessageType;
+  body: string;
+  createdAt: string;
+  createdBy?: User;
+  notificationType: any;
+  paramsList: Array<string>;
+  actions: string;
+  conversationId: string;
+  conversation: string;
+  draft: string;
+  knowledgeBaseUri: string;
+  knowledgeBaseHighlightStart: number;
+  knowledgeBaseHighlightEnd: number;
+  knowledgeBaseImageUrl: string;
+  knowledgeBaseTitle: string;
+  googleUrl: string;
+  googleSearchText: string;
+  disabled: boolean;
+  deliveryType: string;
+  attachmentsList: Array<Attachment>;
+};

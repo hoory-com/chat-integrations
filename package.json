@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
+    "graphql-ws": "^5.11.2",
     "react-image": "^4.0.3",
     "validator": "^13.1.1"
   }
