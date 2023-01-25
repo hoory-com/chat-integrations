@@ -4,7 +4,7 @@ import { SSO_URL, AUTH_TOKEN_KEY, ChatPagePostMessage } from "../../constants";
 import { FormButton } from "../../../../components";
 import { useUpdateMessages } from "../../../../hooks";
 import { useMessageContext } from "../../../../contexts";
-import { toggleAiTemplateIframe } from "../../post/ucraft";
+import { toggleAiTemplateIframe } from "../../postMessages";
 import { ButtonsWrapper } from "../../styles";
 
 function LikedWebsite() {

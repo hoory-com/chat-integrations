@@ -13,13 +13,13 @@ import {
   CompletedIcon,
   LoaderTextSwitcher,
 } from "../../../../components";
-import { getTemplateThumbnailQuery } from "../../ucraftHelpers/graphQL/query";
-import { unAuthCategories } from "../../ucraftHelpers/types";
+import { getTemplateThumbnailQuery } from "../../helpers/graphQL/query";
+import { unAuthCategories } from "../../helpers/types";
 import defaultTemplateImage from "../../../../assets/images/placeholder.png";
 import TemplateSkeleton from "./TemplateSkeleton";
 import { useMessageContext } from "../../../../contexts";
 import { useUpdateMessages } from "../../../../hooks";
-import { togglePaymentIframe, toggleTemplatesIframe } from "../../post/ucraft";
+import { togglePaymentIframe, toggleTemplatesIframe } from "../../postMessages";
 import {
   TemplateContainer,
   TemplateBlock,

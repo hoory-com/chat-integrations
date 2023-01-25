@@ -9,7 +9,7 @@ import {
 } from "../../constants";
 import { useMessageContext } from "../../../../contexts";
 import { useUpdateMessages } from "../../../../hooks";
-import { toggleTemplatesIframe } from "../../post/ucraft";
+import { toggleTemplatesIframe } from "../../postMessages";
 import { ButtonsWrapper } from "../../styles";
 
 enum DesignButtons {

@@ -11,7 +11,7 @@ import LikedWebsite from "./componets/LikedWebsite";
 import WebsiteUrl from "./componets/WebsiteUrl";
 import { SSO_URL } from "./constants";
 import { FormType } from "../../constants";
-import { getUcraftAuthToken } from "./ucraftHelpers";
+import { getUcraftAuthToken } from "./helpers";
 import { useApolloClient } from "../../hooks";
 import { useMessageContext } from "../../contexts";
 

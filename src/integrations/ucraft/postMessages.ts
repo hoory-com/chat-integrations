@@ -1,4 +1,4 @@
-import { ChatPagePostMessage } from "../constants";
+import { ChatPagePostMessage } from "./constants";
 
 type DataType = { [key: string]: any };
 

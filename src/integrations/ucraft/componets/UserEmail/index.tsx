@@ -16,14 +16,14 @@ import {
   FormButton,
   LoaderTextSwitcher,
 } from "../../../../components";
-import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "../../ucraftHelpers/constants";
+import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "../../helpers/constants";
 import { isEmail } from "../../../../helpers/validationHelpers";
 import { useFocus } from "../../../../hooks";
-import { ssoServices } from "../../ucraftHelpers";
-import { ErrorCodes } from "../../ucraftHelpers/types";
+import { ssoServices } from "../../helpers";
+import { ErrorCodes } from "../../helpers/types";
 import type { ErrorResponse } from "../../constants";
 import { useMessageContext } from "../../../../contexts";
-import { toggleSignInIframe } from "../../post/ucraft";
+import { toggleSignInIframe } from "../../postMessages";
 import { useUpdateMessages } from "../../../../hooks";
 import { ErrorMessage } from "../../styles";
 

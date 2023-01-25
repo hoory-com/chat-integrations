@@ -18,10 +18,10 @@ import {
 import { getTopTemplateId, urlCheck } from "./helpers";
 import { AiErrorType, UrlData, UrlResponse } from "./types";
 import { InputWrapper } from "./styles";
-import axiosAiApi from "../../ucraftHelpers/axiosAiApi";
+import axiosAiApi from "../../helpers/axiosAiApi";
 import { useMessageContext } from "../../../../contexts";
 import { useUpdateMessages } from "../../../../hooks";
-import { toggleAiTemplateByIdIframe } from "../../post/ucraft";
+import { toggleAiTemplateByIdIframe } from "../../postMessages";
 import { ErrorMessage, StyledSkipButton } from "../../styles";
 
 function WebsiteUrl() {

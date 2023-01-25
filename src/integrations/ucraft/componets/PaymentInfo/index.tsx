@@ -4,7 +4,7 @@ import { FormButton } from "../../../../components";
 import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../constants";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
 import { useMessageContext } from "../../../../contexts";
-import { redirectToDashboard } from "../../ucraftHelpers";
+import { redirectToDashboard } from "../../helpers";
 
 function PaymentInfo() {
   const { t } = useTranslation("ui");
