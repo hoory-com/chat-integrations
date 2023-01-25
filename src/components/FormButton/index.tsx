@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonProps } from "antd/lib/button";
-import { useRasaMessageContext } from "../../contexts";
 import { FormButtonWrapper } from "./styles";
+import { useMessageContext } from "../../contexts";
 
 interface Props extends ButtonProps {
   isPrimary?: boolean;
@@ -20,7 +20,7 @@ function FormButton({
   color,
   ...props
 }: Props) {
-  const { isDarkTheme } = useRasaMessageContext();
+  const { isDarkTheme } = useMessageContext();
   return (
     <FormButtonWrapper
       $isDarkTheme={isDarkTheme}
