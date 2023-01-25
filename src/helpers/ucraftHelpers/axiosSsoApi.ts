@@ -50,7 +50,7 @@ axiosSsoApi.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     const { response } = error;
-    const errorData = response?.data;
+    const errorData = response?.data as any;
 
     return new Promise((_, reject) => {
       if (errorData) {

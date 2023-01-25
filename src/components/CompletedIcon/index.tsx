@@ -1,5 +1,5 @@
 import React from "react";
-import InputCheckIcon from "assets/svg/inputCheckIcon.svg";
+import InputCheckIcon from "../../assets/svg/inputCheckIcon.svg";
 interface Props {
   completed: boolean;
 }

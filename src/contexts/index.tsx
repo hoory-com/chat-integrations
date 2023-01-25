@@ -5,7 +5,7 @@ import {
   MessageResponse,
   RasaFieldType,
   RasaMessageType,
-} from "../constants/GeneralTypes";
+} from "../constants";
 
 export type ContextType = {
   isInWidget?: boolean;

@@ -7,11 +7,11 @@ import {
   FormButton,
   FormInput,
   CompletedIcon,
-} from "components";
-import { useFocus, useUpdateMessages } from "hooks";
-import { useMessageContext } from "contexts";
-import { generateProjectNameMutation } from "helpers/ucraftHelpers/graphQL/mutation";
-import { unAuthCategories } from "helpers/ucraftHelpers/types";
+} from "../../../components";
+import { useFocus, useUpdateMessages } from "../../../hooks";
+import { useMessageContext } from "../../../contexts";
+import { generateProjectNameMutation } from "../../../helpers/ucraftHelpers/graphQL/mutation";
+import { unAuthCategories } from "../../../helpers/ucraftHelpers/types";
 import { ErrorMessage } from "../styles";
 
 function ProjectName() {

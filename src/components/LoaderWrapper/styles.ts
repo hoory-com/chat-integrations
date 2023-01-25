@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { prop } from "../../../helpers";
+import { prop } from "styled-components-helpers";
 
 export const LoaderImage = styled.img<{ $size: string; $speed: number }>`
   && {

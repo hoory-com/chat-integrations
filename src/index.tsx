@@ -1,6 +1,6 @@
 import React, { lazy, memo } from "react";
 import { ContextType, Provider as MessageProvider } from "./contexts";
-import Ucraft from "integrations/ucraft";
+import Ucraft from "./integrations/ucraft";
 
 /**
  * Spring builder
@@ -26,7 +26,7 @@ function IntegrationWrapper(props: Props) {
       .
     </div>
   );
-
+  console.log(props.field, "fffffffffff");
   switch (props.field.custom_provider) {
     /**
      * Ucraft

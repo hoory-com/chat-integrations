@@ -66,6 +66,7 @@ type fieldMetadataType = {
 export type RasaFieldType = {
   type: string;
   question: string;
+  title: string;
   placeholder?: string;
   fieldMetadata: fieldMetadataType;
   options?: RasaOptions[] | string;

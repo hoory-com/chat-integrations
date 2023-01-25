@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Base64Uploader } from "components";
+import { Base64Uploader } from "../../../components";
 import {
   UPLOADED_LOGO_BASE64_STORAGE_KEY,
   RASA_NO_LOGO,
   RASA_UPLOAD_COMPLETED,
-} from "constants/UCValues";
-import { useMessageContext } from "contexts";
+} from "../../../constants";
+import { useMessageContext } from "../../../contexts";
 import { useUpdateMessages } from "../../../hooks";
 import { StyledButton } from "./styles";
 

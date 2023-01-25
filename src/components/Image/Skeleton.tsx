@@ -1,5 +1,5 @@
 import React from "react";
-import BrokenImageIcon from "assets/svg/broken-image.svg";
+import BrokenImageIcon from "../../assets/svg/broken-image.svg";
 import { StyledBrokenImageWrapper, StyledLoadingSkeleton } from "./styles";
 
 type Props = {

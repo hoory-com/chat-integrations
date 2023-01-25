@@ -1,6 +1,6 @@
 {
   "name": "@hoory/chat-intergrations",
-  "version": "1.0.38",
+  "version": "1.0.47",
   "private": false,
   "description": "Hoory custom chat integrations",
   "main": "./lib/cjs/index.js",
@@ -67,6 +67,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-json": "^6.0.0",
+    "axios": "^0.25.0",
+    "graphql": "^16.5.0",
     "graphql-ws": "^5.11.2",
     "react-image": "^4.0.3",
     "validator": "^13.1.1"

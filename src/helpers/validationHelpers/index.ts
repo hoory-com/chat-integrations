@@ -4,7 +4,7 @@ import {
   PROTOCOL,
   REPLACE_ASTERISK_DOT_TEXT,
   REPLACE_TEXT,
-} from "constants/GeneralValues";
+} from "../../constants/GeneralValues";
 
 export function isEmail(value: string): boolean {
   return isEmailValid(value);

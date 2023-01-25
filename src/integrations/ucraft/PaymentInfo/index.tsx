@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FormButton } from "components";
-import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "constants/UCValues";
+import { FormButton } from "../../../components";
+import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../../constants";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
 import { useMessageContext } from "../../../contexts";
-import { redirectToDashboard } from "helpers/ucraftHelpers";
+import { redirectToDashboard } from "../../../helpers/ucraftHelpers";
 
 function PaymentInfo() {
   const { t } = useTranslation("ui");

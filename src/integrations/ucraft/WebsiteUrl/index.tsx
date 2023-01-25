@@ -2,12 +2,21 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
-import { AUTH_TOKEN_KEY, SSO_URL, FIELD_SKIPPED } from "constants/UCValues";
-import { isUrl } from "helpers/validationHelpers";
-import { FormButton, LoaderTextSwitcher, CompletedIcon } from "components";
+import {
+  AUTH_TOKEN_KEY,
+  SSO_URL,
+  FIELD_SKIPPED,
+  ChatPagePostMessage,
+  FormType,
+} from "../../../constants";
+import { isUrl } from "../../../helpers/validationHelpers";
+import {
+  FormButton,
+  LoaderTextSwitcher,
+  CompletedIcon,
+} from "../../../components";
 import { getTopTemplateId, urlCheck } from "./helpers";
 import { AiErrorType, UrlData, UrlResponse } from "./types";
-import { ChatPagePostMessage, FormType } from "constants/UCValues";
 import { InputWrapper } from "./styles";
 import axiosAiApi from "../../../helpers/ucraftHelpers/axiosAiApi";
 import { useMessageContext } from "../../../contexts";
@@ -21,7 +30,7 @@ function WebsiteUrl() {
     sendMessageHandler,
     color,
     message,
-    field: { field_metadata, value, type, required },
+    field: { field_metadata, value, custom_type, required },
     isLastField,
   } = useMessageContext();
   const [websiteUrl, setWebsiteUrl] = useState(value || "");
@@ -63,12 +72,12 @@ function WebsiteUrl() {
   );
 
   useEffect(() => {
-    if (FormType.UCRAFT_WEBSITE_URL === type) {
-      window.addEventListener("message", listener, false);
-      return () => window.removeEventListener("message", listener);
-    }
-    return () => {};
-  }, [websiteUrl, type]);
+    window.addEventListener("message", listener, false);
+
+    return () => {
+      window.removeEventListener("message", listener);
+    };
+  }, [websiteUrl, custom_type]);
 
   const onUrlInput = debounce(async (siteUrl: string) => {
     const url = siteUrl.trim();
@@ -79,7 +88,7 @@ function WebsiteUrl() {
 
     if (url) {
       const urlHttp = urlCheck(url);
-      if (type === FormType.UCRAFT_WEBSITE_URL) {
+      if (custom_type === FormType.UCRAFT_WEBSITE_URL) {
         setLoader(true);
         try {
           const response = await axiosAiApi.post<UrlData, UrlResponse>(
@@ -115,7 +124,7 @@ function WebsiteUrl() {
   }, 1500);
 
   const handleFinish = async () => {
-    if (type === FormType.UCRAFT_WEBSITE_URL) {
+    if (custom_type === FormType.UCRAFT_WEBSITE_URL) {
       toggleAiTemplateByIdIframe({
         data: {
           address: SSO_URL,
@@ -176,8 +185,8 @@ function WebsiteUrl() {
         touched
         marginBottomSmall
         placeholder={
-          type === FormType.URL
-            ? t(`rasaForm.${FormType[type]}`)
+          custom_type === FormType.URL
+            ? t(`rasaForm.${FormType[custom_type]}`)
             : "https://www.ucraft.com"
         }
         suffix={<CompletedIcon completed={completed} />}
@@ -199,7 +208,7 @@ function WebsiteUrl() {
             isPrimary
             block
           >
-            {type !== FormType.URL ? (
+            {custom_type !== FormType.URL ? (
               <LoaderTextSwitcher
                 loader={loader}
                 text={t("rasaForm.createMyWebsite")}

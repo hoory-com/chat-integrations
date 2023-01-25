@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { RcFile, UploadFile, UploadProps } from "antd/lib/upload/interface";
-import InputCheckIcon from "assets/svg/inputCheckIcon.svg";
-import DeleteImageIcon from "assets/svg/delete-image.svg";
-import UploadLoadingIcon from "assets/svg/upload-loading.svg";
+import InputCheckIcon from "../../assets/svg/inputCheckIcon.svg";
+import DeleteImageIcon from "../../assets/svg/delete-image.svg";
+import UploadLoadingIcon from "../../assets/svg/upload-loading.svg";
 import { getBase64, bytesToMegabytes } from "./fileUtils";
 import LoaderWrapper from "../LoaderWrapper";
 import {

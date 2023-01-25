@@ -12,7 +12,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
-import { createClient } from "graphql-ws/lib/client";
+import { createClient } from "graphql-ws";
 
 /* eslint-disable no-console */
 

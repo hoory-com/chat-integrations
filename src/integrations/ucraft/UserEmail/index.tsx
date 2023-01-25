@@ -8,39 +8,40 @@ import { useLocation } from "react-router-dom";
 import { parse } from "query-string";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
-import InputCheckIcon from "assets/svg/inputCheckIcon.svg";
-
+import InputCheckIcon from "../../../assets/svg/inputCheckIcon.svg";
 import {
   ChatPagePostMessage,
   FormType,
   EMAIL_MAX_LENGTH,
-} from "constants/UCValues";
-import { FormInput, FormButton, LoaderTextSwitcher } from "components";
-import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "helpers/ucraftHelpers/constants";
-import { isEmail } from "helpers/validationHelpers";
-import { useFocus } from "hooks";
-import { ssoServices } from "helpers/ucraftHelpers";
-import { ErrorCodes } from "helpers/ucraftHelpers/types";
-import type { ErrorResponse } from "constants/UCTypes";
-import { useMessageContext } from "contexts";
+} from "../../../constants";
+import { FormInput, FormButton, LoaderTextSwitcher } from "../../../components";
+import {
+  ACCOUNTS_URL,
+  AUTH_TOKEN_KEY,
+} from "../../../helpers/ucraftHelpers/constants";
+import { isEmail } from "../../../helpers/validationHelpers";
+import { useFocus } from "../../../hooks";
+import { ssoServices } from "../../../helpers/ucraftHelpers";
+import { ErrorCodes } from "../../../helpers/ucraftHelpers/types";
+import type { ErrorResponse } from "../../../constants";
+import { useMessageContext } from "../../../contexts";
 import { toggleSignInIframe } from "../../../post/ucraft";
 import { useUpdateMessages } from "../../../hooks";
 import { ErrorMessage } from "../styles";
 
 function UserEmail() {
+  const { t } = useTranslation("ui");
   const [form] = Form.useForm();
   const {
     sendMessageHandler,
     color,
     message,
     visitor,
-    field: { value, field_metadata, type },
+    field: { value, field_metadata, custom_type },
   } = useMessageContext();
   const { search } = useLocation();
   const { email: currentEmail } = parse(search);
-  const isUcraftForm = type === FormType.UCRAFT_EMAIL;
-  const defaultEmail = isUcraftForm && visitor ? visitor.email : "";
-  const { t } = useTranslation("ui");
+  const defaultEmail = visitor ? visitor.email : "";
   const { updateMessages } = useUpdateMessages();
   const [completed, setCompleted] = useState(Boolean(value));
   const [disabled, setDisabled] = useState(Boolean(value));
@@ -87,21 +88,18 @@ function UserEmail() {
   );
 
   useEffect(() => {
-    if (isUcraftForm) {
-      window.addEventListener("message", listener, false);
-    }
+    window.addEventListener("message", listener, false);
+
     return () => {
-      if (isUcraftForm) {
-        window.removeEventListener("message", listener);
-      }
+      window.removeEventListener("message", listener);
     };
-  }, [isUcraftForm]);
+  }, []);
 
   useEffect(() => {
-    if (isUcraftForm && currentEmail) {
+    if (currentEmail) {
       setEmail(String(currentEmail));
     }
-  }, [isUcraftForm, currentEmail]);
+  }, [currentEmail]);
 
   const onEmailInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -131,30 +129,28 @@ function UserEmail() {
     setLoading(true);
 
     try {
-      if (isUcraftForm) {
-        const response = await ssoServices.signup({
-          email,
-          name: field_metadata?.userName || "User",
-        });
+      const response = await ssoServices.signup({
+        email,
+        name: field_metadata?.userName || "User",
+      });
 
-        if (!response) {
-          return;
-        }
+      if (!response) {
+        return;
+      }
 
-        if (response?.message === ErrorCodes.EMAIL_EXISTS) {
-          setErrorText("rasaForm.emailExistError");
-          setIsError(true);
-          setEmailExist(true);
+      if (response?.message === ErrorCodes.EMAIL_EXISTS) {
+        setErrorText("rasaForm.emailExistError");
+        setIsError(true);
+        setEmailExist(true);
 
-          return;
-        }
+        return;
+      }
 
-        if (response?.message === ErrorCodes.UNDETERMINED_ERROR) {
-          setErrorText("rasaForm.undetectedError");
-          setIsError(true);
+      if (response?.message === ErrorCodes.UNDETERMINED_ERROR) {
+        setErrorText("rasaForm.undetectedError");
+        setIsError(true);
 
-          return;
-        }
+        return;
       }
 
       sendMessageHandler &&
@@ -192,7 +188,7 @@ function UserEmail() {
         value={email}
         marginBottomSmall={true}
         maxLength={EMAIL_MAX_LENGTH}
-        placeholder={t(`rasaForm.${FormType[type]}`)}
+        placeholder={t(`rasaForm.${FormType[custom_type]}`)}
         suffix={
           completed && <img src={InputCheckIcon} alt={"InputCheckIcon"} />
         }

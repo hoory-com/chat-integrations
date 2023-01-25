@@ -7,12 +7,22 @@ import {
   UPLOADED_LOGO_BASE64_STORAGE_KEY,
   anotherTemplate,
   ChatPagePostMessage,
-} from "constants/index";
-import { FormButton, CompletedIcon, LoaderTextSwitcher } from "components";
-import { getTemplateThumbnailQuery } from "helpers/ucraftHelpers/graphQL/query";
-import { unAuthCategories } from "helpers/ucraftHelpers/types";
-import defaultTemplateImage from "assets/images/placeholder.png";
+} from "../../../constants";
+import {
+  FormButton,
+  CompletedIcon,
+  LoaderTextSwitcher,
+} from "../../../components";
+import { getTemplateThumbnailQuery } from "../../../helpers/ucraftHelpers/graphQL/query";
+import { unAuthCategories } from "../../../helpers/ucraftHelpers/types";
+import defaultTemplateImage from "../../../assets/images/placeholder.png";
 import TemplateSkeleton from "./TemplateSkeleton";
+import { useMessageContext } from "../../../contexts";
+import { useUpdateMessages } from "../../../hooks";
+import {
+  togglePaymentIframe,
+  toggleTemplatesIframe,
+} from "../../../post/ucraft";
 import {
   TemplateContainer,
   TemplateBlock,
@@ -25,12 +35,6 @@ import {
   TemplateInfo,
   TemplateIndustry,
 } from "./styles";
-import { useMessageContext } from "../../../contexts";
-import { useUpdateMessages } from "../../../hooks/useUpdateMessage";
-import {
-  togglePaymentIframe,
-  toggleTemplatesIframe,
-} from "../../../post/ucraft";
 
 interface ITemplate {
   id: string;

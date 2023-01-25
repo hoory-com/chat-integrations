@@ -1,4 +1,4 @@
-import { useMessageContext } from "contexts";
+import { useMessageContext } from "../contexts";
 import { useCallback } from "react";
 
 export const useUpdateMessages = () => {

@@ -21,7 +21,7 @@ export const getFieldsDataFromServerError = (errors: ServerError[]) => {
 
 export const errorsHandler = (error: AxiosError) => {
   const { response } = error;
-  const errorData = response?.data;
+  const errorData = response?.data as any;
 
   return new Promise((_, reject) => {
     if (errorData) {

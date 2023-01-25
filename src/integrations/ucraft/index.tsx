@@ -9,9 +9,10 @@ import PaymentInfo from "./PaymentInfo";
 import ProjectName from "./ProjectName";
 import LikedWebsite from "./LikedWebsite";
 import WebsiteUrl from "./WebsiteUrl";
-import { FormType, SSO_URL } from "constants/UCValues";
+import { FormType, SSO_URL } from "../../constants";
 import { getUcraftAuthToken } from "../../helpers/ucraftHelpers";
-import { useApolloClient } from "hooks";
+import { useApolloClient } from "../../hooks";
+import { useMessageContext } from "../../contexts";
 
 type Props = {
   type: FormType;
@@ -23,7 +24,7 @@ function Ucraft({ type }: Props) {
     authToken: getUcraftAuthToken(),
   };
   const client = useApolloClient({ apolloClientParams });
-
+  const { field } = useMessageContext();
   const renderComponent = () => {
     switch (type) {
       /**
@@ -48,9 +49,16 @@ function Ucraft({ type }: Props) {
       case FormType.UCRAFT_EMAIL:
         return <UserEmail />;
     }
+    return null;
   };
 
-  return <ApolloProvider client={client}>{renderComponent}</ApolloProvider>;
+  return (
+    <ApolloProvider client={client}>
+      <div></div>
+      <div>{field.question || field.title}</div>
+      {renderComponent()}
+    </ApolloProvider>
+  );
 }
 
 export default Ucraft;

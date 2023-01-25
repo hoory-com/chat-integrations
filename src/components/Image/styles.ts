@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Skeleton } from "antd";
-import { ifProp, prop } from "../../../helpers";
+import { ifProp, prop } from "styled-components-helpers";
 
 export const StyledLoadingSkeleton = styled(Skeleton.Input)<{
   $possibleHeight?: string;
