@@ -1,16 +1,17 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/client";
-import UserEmail from "./UserEmail";
-import ProjectUrl from "./ProjectUrl";
-import LogoUploader from "./LogoUploader";
-import WebsiteDesign from "./WebsiteDesign";
-import DesignTemplate from "./DesignTemplate";
-import PaymentInfo from "./PaymentInfo";
-import ProjectName from "./ProjectName";
-import LikedWebsite from "./LikedWebsite";
-import WebsiteUrl from "./WebsiteUrl";
-import { FormType, SSO_URL } from "../../constants";
-import { getUcraftAuthToken } from "../../helpers/ucraftHelpers";
+import UserEmail from "./componets/UserEmail";
+import ProjectUrl from "./componets/ProjectUrl";
+import LogoUploader from "./componets/LogoUploader";
+import WebsiteDesign from "./componets/WebsiteDesign";
+import DesignTemplate from "./componets/DesignTemplate";
+import PaymentInfo from "./componets/PaymentInfo";
+import ProjectName from "./componets/ProjectName";
+import LikedWebsite from "./componets/LikedWebsite";
+import WebsiteUrl from "./componets/WebsiteUrl";
+import { SSO_URL } from "./constants";
+import { FormType } from "../../constants";
+import { getUcraftAuthToken } from "./ucraftHelpers";
 import { useApolloClient } from "../../hooks";
 import { useMessageContext } from "../../contexts";
 

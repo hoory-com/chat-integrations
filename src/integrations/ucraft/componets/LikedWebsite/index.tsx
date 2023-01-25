@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  SSO_URL,
-  AUTH_TOKEN_KEY,
-  ChatPagePostMessage,
-} from "../../../constants";
-import { FormButton } from "../../../components";
-import { useUpdateMessages } from "../../../hooks";
-import { useMessageContext } from "../../../contexts";
-import { toggleAiTemplateIframe } from "../../../post/ucraft";
-import { ButtonsWrapper } from "../styles";
+import { SSO_URL, AUTH_TOKEN_KEY, ChatPagePostMessage } from "../../constants";
+import { FormButton } from "../../../../components";
+import { useUpdateMessages } from "../../../../hooks";
+import { useMessageContext } from "../../../../contexts";
+import { toggleAiTemplateIframe } from "../../post/ucraft";
+import { ButtonsWrapper } from "../../styles";
 
 function LikedWebsite() {
   const { t } = useTranslation("ui");

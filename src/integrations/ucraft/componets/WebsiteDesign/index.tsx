@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { FormButton } from "../../../components";
+import { FormButton } from "../../../../components";
 import {
   anotherTemplate,
   ChatPagePostMessage,
   SSO_URL,
   AUTH_TOKEN_KEY,
-} from "../../../constants";
-import { useMessageContext } from "../../../contexts";
-import { useUpdateMessages } from "../../../hooks";
-import { toggleTemplatesIframe } from "../../../post/ucraft";
-import { ButtonsWrapper } from "../styles";
+} from "../../constants";
+import { useMessageContext } from "../../../../contexts";
+import { useUpdateMessages } from "../../../../hooks";
+import { toggleTemplatesIframe } from "../../post/ucraft";
+import { ButtonsWrapper } from "../../styles";
 
 enum DesignButtons {
   AI_DESIGN = "aiDesign",

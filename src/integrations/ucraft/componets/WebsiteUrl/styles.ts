@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FormInput } from "../../../components";
+import { FormInput } from "../../../../components";
 
 export const InputWrapper = styled(FormInput)`
   &&& {

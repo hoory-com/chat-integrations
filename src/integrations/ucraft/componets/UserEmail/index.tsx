@@ -8,26 +8,24 @@ import { useLocation } from "react-router-dom";
 import { parse } from "query-string";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
-import InputCheckIcon from "../../../assets/svg/inputCheckIcon.svg";
+import InputCheckIcon from "../../../../assets/svg/inputCheckIcon.svg";
+import { ChatPagePostMessage, EMAIL_MAX_LENGTH } from "../../constants";
+import { FormType } from "../../../../constants";
 import {
-  ChatPagePostMessage,
-  FormType,
-  EMAIL_MAX_LENGTH,
-} from "../../../constants";
-import { FormInput, FormButton, LoaderTextSwitcher } from "../../../components";
-import {
-  ACCOUNTS_URL,
-  AUTH_TOKEN_KEY,
-} from "../../../helpers/ucraftHelpers/constants";
-import { isEmail } from "../../../helpers/validationHelpers";
-import { useFocus } from "../../../hooks";
-import { ssoServices } from "../../../helpers/ucraftHelpers";
-import { ErrorCodes } from "../../../helpers/ucraftHelpers/types";
-import type { ErrorResponse } from "../../../constants";
-import { useMessageContext } from "../../../contexts";
-import { toggleSignInIframe } from "../../../post/ucraft";
-import { useUpdateMessages } from "../../../hooks";
-import { ErrorMessage } from "../styles";
+  FormInput,
+  FormButton,
+  LoaderTextSwitcher,
+} from "../../../../components";
+import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "../../ucraftHelpers/constants";
+import { isEmail } from "../../../../helpers/validationHelpers";
+import { useFocus } from "../../../../hooks";
+import { ssoServices } from "../../ucraftHelpers";
+import { ErrorCodes } from "../../ucraftHelpers/types";
+import type { ErrorResponse } from "../../constants";
+import { useMessageContext } from "../../../../contexts";
+import { toggleSignInIframe } from "../../post/ucraft";
+import { useUpdateMessages } from "../../../../hooks";
+import { ErrorMessage } from "../../styles";
 
 function UserEmail() {
   const { t } = useTranslation("ui");

@@ -7,22 +7,22 @@ import {
   SSO_URL,
   FIELD_SKIPPED,
   ChatPagePostMessage,
-  FormType,
-} from "../../../constants";
-import { isUrl } from "../../../helpers/validationHelpers";
+} from "../../constants";
+import { FormType } from "../../../../constants";
+import { isUrl } from "../../../../helpers/validationHelpers";
 import {
   FormButton,
   LoaderTextSwitcher,
   CompletedIcon,
-} from "../../../components";
+} from "../../../../components";
 import { getTopTemplateId, urlCheck } from "./helpers";
 import { AiErrorType, UrlData, UrlResponse } from "./types";
 import { InputWrapper } from "./styles";
-import axiosAiApi from "../../../helpers/ucraftHelpers/axiosAiApi";
-import { useMessageContext } from "../../../contexts";
-import { useUpdateMessages } from "../../../hooks";
-import { toggleAiTemplateByIdIframe } from "../../../post/ucraft";
-import { ErrorMessage, StyledSkipButton } from "../styles";
+import axiosAiApi from "../../ucraftHelpers/axiosAiApi";
+import { useMessageContext } from "../../../../contexts";
+import { useUpdateMessages } from "../../../../hooks";
+import { toggleAiTemplateByIdIframe } from "../../post/ucraft";
+import { ErrorMessage, StyledSkipButton } from "../../styles";
 
 function WebsiteUrl() {
   const { t } = useTranslation("ui");

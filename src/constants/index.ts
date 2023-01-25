@@ -1,3 +1,2 @@
-export * from "./UCValues";
+export * from "./GeneralValues";
 export * from "./GeneralTypes";
-export * from "./UCTypes";

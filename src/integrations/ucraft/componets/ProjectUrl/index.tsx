@@ -1,5 +1,5 @@
 import React from "react";
-import { PROJECT_URL, defaultProjectName } from "../../../constants";
+import { PROJECT_URL, defaultProjectName } from "../../constants";
 import { UrlContent, DomainName, ProjectUrlWrapper } from "./styles";
 
 function ProjectUrl() {

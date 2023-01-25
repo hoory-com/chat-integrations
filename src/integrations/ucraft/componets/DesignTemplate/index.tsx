@@ -7,22 +7,19 @@ import {
   UPLOADED_LOGO_BASE64_STORAGE_KEY,
   anotherTemplate,
   ChatPagePostMessage,
-} from "../../../constants";
+} from "../../constants";
 import {
   FormButton,
   CompletedIcon,
   LoaderTextSwitcher,
-} from "../../../components";
-import { getTemplateThumbnailQuery } from "../../../helpers/ucraftHelpers/graphQL/query";
-import { unAuthCategories } from "../../../helpers/ucraftHelpers/types";
-import defaultTemplateImage from "../../../assets/images/placeholder.png";
+} from "../../../../components";
+import { getTemplateThumbnailQuery } from "../../ucraftHelpers/graphQL/query";
+import { unAuthCategories } from "../../ucraftHelpers/types";
+import defaultTemplateImage from "../../../../assets/images/placeholder.png";
 import TemplateSkeleton from "./TemplateSkeleton";
-import { useMessageContext } from "../../../contexts";
-import { useUpdateMessages } from "../../../hooks";
-import {
-  togglePaymentIframe,
-  toggleTemplatesIframe,
-} from "../../../post/ucraft";
+import { useMessageContext } from "../../../../contexts";
+import { useUpdateMessages } from "../../../../hooks";
+import { togglePaymentIframe, toggleTemplatesIframe } from "../../post/ucraft";
 import {
   TemplateContainer,
   TemplateBlock,

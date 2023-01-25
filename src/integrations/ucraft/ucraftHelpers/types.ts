@@ -34,10 +34,6 @@ export type SignupResponse = {
   message?: string;
 };
 
-export type ErrorResponse = {
-  message?: string;
-};
-
 export interface Error {
   name: string;
   message: string;
