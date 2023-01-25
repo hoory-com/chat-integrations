@@ -26,7 +26,7 @@ function IntegrationWrapper(props: Props) {
       .
     </div>
   );
-  console.log(props.field, "fffffffffff");
+
   switch (props.field.custom_provider) {
     /**
      * Ucraft
