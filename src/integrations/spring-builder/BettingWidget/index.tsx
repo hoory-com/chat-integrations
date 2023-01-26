@@ -37,7 +37,7 @@ function BettingWidget ({
   swarmUrl,
   partnerId
 }: Props) {
-  const [isLoaded, setIsLoaded] = useState(Boolean(document.getElementById('SP_WIDGET_JS_FILE')))
+  const [isLoaded, setIsLoaded] = useState<boolean>()
   const tempConfig: WidgetConfig = { ...widgetConfig }
   if (onSelect) {
     const callbackFnName = `hoorySuccessCallback_${widgetKey}`
@@ -51,6 +51,9 @@ function BettingWidget ({
     tempConfig.hasCallback = true
     tempConfig.callbackName = callbackFnName
   }
+  useEffect(() => {
+    setIsLoaded(!!document.getElementById('SP_WIDGET_JS_FILE'));
+  }, [document])
 
   useEffect(() => {
     window.partnerConfigs = {
@@ -79,7 +82,7 @@ function BettingWidget ({
         (window as any).initHooryWidgets()
       }
     } else {
-      (window as any).initHooryWidgets()
+      (window as any)?.initHooryWidgets?.()
     }
   }, [isLoaded])
 
