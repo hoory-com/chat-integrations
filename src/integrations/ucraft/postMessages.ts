@@ -36,3 +36,10 @@ export function toggleAiTemplateByIdIframe(data: DataType): void {
     "*"
   );
 }
+
+export function toggleProductDescriptionSave(data: DataType): void {
+  window.parent.postMessage(
+    { ...data, type: ChatPagePostMessage.PRODUCT_DESCRIPTION_SAVE },
+    "*"
+  );
+}
