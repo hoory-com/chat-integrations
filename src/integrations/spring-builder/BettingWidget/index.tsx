@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FILES_PATH } from './constants'
 import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback } from '../types'
 import {
@@ -96,4 +96,4 @@ function BettingWidget ({
   )
 }
 
-export default memo(BettingWidget)
+export default BettingWidget
