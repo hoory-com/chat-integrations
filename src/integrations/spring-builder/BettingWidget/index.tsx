@@ -79,7 +79,7 @@ function BettingWidget ({
 
       mainScript.onload = function () {
         setIsLoaded(true);
-        (window as any).initHooryWidgets()
+        (window as any)?.initHooryWidgets?.()
       }
     } else {
       (window as any)?.initHooryWidgets?.()
