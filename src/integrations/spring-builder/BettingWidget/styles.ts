@@ -41,6 +41,7 @@ export const StyledWidgetWrapper = styled.div<{ $isDisabled?: boolean; $isInWidg
   // Custom specific style to overwrite SP widget
   .searchBar-wrapper--result {
     border-radius: 9px;
+    height: initial !important;
   }
   .market-collapse > div:nth-child(2) {
     display: none;
