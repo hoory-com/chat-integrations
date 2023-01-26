@@ -1,5 +1,5 @@
 import React from "react";
-import ImageLoadingWrapper from "../../../../../ImageLoadingWrapper";
+import ImageLoadingWrapper from "../ImageLoadingWrapper";
 import LoaderWhiteIcon from "@hoory-com/shared-assets/icons/LoaderWhiteIcon/index.svg";
 import LoaderBlackIcon from "@hoory-com/shared-assets/icons/LoaderBlackIcon/index.svg";
 
