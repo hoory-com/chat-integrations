@@ -6,7 +6,6 @@ import { useMessageContext } from "../../contexts";
 import {
   BetFlowData,
   SpringBuilderWidgetType,
-  // FieldType,
   WidgetConfig,
 } from "./types";
 import { StyledSkipButton, StyledSkipButtonWrapper } from "./styles";
@@ -106,7 +105,7 @@ function BetFlowMessage() {
       if (optionData.status === "success") {
         messageToSend = "BET_PLACE";
       } else {
-        messageToSend = "/error";
+        messageToSend = "/restart";
       }
     } else if (currentFieldType === "PAYMENT_AMOUNT") {
       switch (optionData.status) {
@@ -168,6 +167,7 @@ function BetFlowMessage() {
   return (
     <>
       <BettingWidget
+        messageData={messageData}
         isInWidget={isInWidget}
         isDisabled={isLastMessage}
         widgetConfig={tempWidgetConfig}
