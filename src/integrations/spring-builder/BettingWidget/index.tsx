@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo, useLayoutEffect, useMemo } from 'react'
 import { FILES_PATH } from './constants'
-import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback } from '../types'
+import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback, BetFlowData } from '../types'
 import {
   StyledWidgetWrapper,
   StyledClickBlocker,
@@ -10,6 +10,7 @@ import {
 export type SelectCallback = TeamStepData & MarketStepData & ConfirmStepData & DepositFinalCallback;
 
 type Props = {
+  messageData: BetFlowData,
   widgetType?: string;
   onSelect: (data: SelectCallback) => void;
   isDisabled?: boolean;
@@ -31,6 +32,7 @@ function BettingWidget ({
   widgetType,
   onSelect,
   widgetConfig,
+  messageData,
   isDisabled,
   isInWidget,
   widgetKey,
@@ -51,18 +53,25 @@ function BettingWidget ({
     tempConfig.hasCallback = true
     tempConfig.callbackName = callbackFnName
   }
-  useEffect(() => {
-    setIsLoaded(!!document.getElementById('SP_WIDGET_JS_FILE'));
+  useLayoutEffect(() => {
+    setIsLoaded(!!document.getElementById('SP_WIDGET_JS_FILE'))
   }, [document])
 
   useEffect(() => {
-    window.partnerConfigs = {
-      swarmUrl: swarmUrl || 'wss://eu-swarm-ws-re.trexname.com/',
-      defaultOddAccept: ''
+    const swarmCustomUrl = swarmUrl || 'wss://eu-swarm-ws-re.trexname.com/'
+    if (window?.partnerConfigs?.swarmUrl !== swarmCustomUrl) {
+      console.log('Socket Connection::1')
+      window.partnerConfigs = {
+        swarmUrl: swarmCustomUrl,
+        defaultOddAccept: '',
+        springConfig: {
+          partnerId: partnerId || 4
+        }
+      }
     }
-    window.partnerConfigs.springConfig = {}
-    window.partnerConfigs.springConfig.partnerId = partnerId || 4
+  }, [swarmUrl, partnerId, window?.partnerConfigs])
 
+  useEffect(() => {
     if (!isLoaded) {
       const mainScript = document.createElement('script')
       const runTimeScript = document.createElement('script')
@@ -86,6 +95,12 @@ function BettingWidget ({
     }
   }, [isLoaded])
 
+  const isLoading = useMemo(() => {
+    return !messageData || !isLoaded
+  }, [isLoaded, messageData])
+
+  console.log(messageData, 'MESSAGE_DATA::')
+
   return (
     <StyledWidgetWrapper $isDisabled={isDisabled} $isInWidget={isInWidget}>
       <div
@@ -94,9 +109,9 @@ function BettingWidget ({
         data-loaded="false"
       />
       {isDisabled && <StyledClickBlocker />}
-      {!isLoaded && <StyledLoadingSkeleton />}
+      {isLoading && <StyledLoadingSkeleton />}
     </StyledWidgetWrapper>
   )
 }
 
-export default BettingWidget
+export default memo(BettingWidget)
