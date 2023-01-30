@@ -99,7 +99,6 @@ function BettingWidget ({
     } else {
       const mainScript = document.getElementById('SP_WIDGET_JS_FILE')
       if (mainScript) {
-        console.log('DDD')
         mainScript.onload = function () {
           (window as any)?.initHooryWidgets?.()
         }
