@@ -110,6 +110,12 @@ function BettingWidget ({
     return !messageData || !isLoaded
   }, [isLoaded, messageData])
 
+  const isLoading = useMemo(() => {
+    return !messageData || !isLoaded
+  }, [isLoaded, messageData])
+
+  console.log(messageData, 'MESSAGE_DATA::')
+
   return (
     <StyledWidgetWrapper $isDisabled={isDisabled} $isInWidget={isInWidget}>
       <div
