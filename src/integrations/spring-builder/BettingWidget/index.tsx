@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useLayoutEffect, useMemo } from 'react'
+import React, { useEffect, useState, memo, useLayoutEffect, useMemo } from 'react';
 import { FILES_PATH } from './constants'
 import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback, BetFlowData } from '../types'
 import {
@@ -39,7 +39,7 @@ function BettingWidget ({
   swarmUrl,
   partnerId
 }: Props) {
-  const [isLoaded, setIsLoaded] = useState<boolean>()
+  const [isLoaded, setIsLoaded] = useState<boolean>();
   const tempConfig: WidgetConfig = { ...widgetConfig }
   if (onSelect) {
     const callbackFnName = `hoorySuccessCallback_${widgetKey}`
@@ -54,7 +54,13 @@ function BettingWidget ({
     tempConfig.callbackName = callbackFnName
   }
   useLayoutEffect(() => {
-    setIsLoaded(!!document.getElementById('SP_WIDGET_JS_FILE'))
+    const mainScript = document.getElementById('SP_WIDGET_JS_FILE')
+    if (mainScript) {
+      console.log('Enter')
+      mainScript.onload = function () {
+        setIsLoaded(true)
+      }
+    }
   }, [document])
 
   useEffect(() => {
@@ -71,7 +77,7 @@ function BettingWidget ({
     }
   }, [swarmUrl, partnerId, window?.partnerConfigs])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isLoaded) {
       const mainScript = document.createElement('script')
       const runTimeScript = document.createElement('script')
@@ -91,15 +97,19 @@ function BettingWidget ({
         (window as any)?.initHooryWidgets?.()
       }
     } else {
-      (window as any)?.initHooryWidgets?.()
+      const mainScript = document.getElementById('SP_WIDGET_JS_FILE')
+      if (mainScript) {
+        console.log('DDD')
+        mainScript.onload = function () {
+          (window as any)?.initHooryWidgets?.()
+        }
+      }
     }
-  }, [isLoaded])
+  }, [isLoaded, document])
 
   const isLoading = useMemo(() => {
     return !messageData || !isLoaded
   }, [isLoaded, messageData])
-
-  console.log(messageData, 'MESSAGE_DATA::')
 
   return (
     <StyledWidgetWrapper $isDisabled={isDisabled} $isInWidget={isInWidget}>
