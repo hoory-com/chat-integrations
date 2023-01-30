@@ -13,17 +13,17 @@ function PaymentInfo() {
   function navigateToDashboard() {
     localStorage.removeItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);
 
-    window.open(
-      redirectToDashboard(field?.field_metadata?.projectId || ""),
-      "_blank"
-    );
+    // window.open(
+    //   redirectToDashboard(field?.options?[0]?.projectId || ""),
+    //   "_blank"
+    // );
   }
 
   return (
     <>
       <StyledPaymentDiv>
-        <span>{field?.field_metadata?.planName || ""}</span>
-        <StyledSpan>{field?.field_metadata?.nextBillingDate || ""}</StyledSpan>
+        {/* <span>{field?.field_metadata?.planName || ""}</span> */}
+        {/* <StyledSpan>{field?.field_metadata?.nextBillingDate || ""}</StyledSpan> */}
       </StyledPaymentDiv>
       <FormButton onClick={navigateToDashboard} color={color} isPrimary block>
         {t("rasaForm.goToDashboard")}

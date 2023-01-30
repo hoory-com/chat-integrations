@@ -102,7 +102,6 @@ export type RasaFieldType = {
   placeholder?: string;
   fieldMetadata: fieldMetadataType;
   options?: RasaOptions[] | string;
-  field_metadata?: Record<string, any>;
   value: string;
   required: boolean;
   custom_provider: string;

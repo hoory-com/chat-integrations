@@ -9,7 +9,6 @@ import {
   ChatPagePostMessage,
 } from "../../constants";
 import { FormType } from "../../../../constants";
-import { isUrl } from "../../../../helpers/validationHelpers";
 import {
   FormButton,
   LoaderTextSwitcher,
@@ -30,7 +29,7 @@ function WebsiteUrl() {
     sendMessageHandler,
     color,
     message,
-    field: { field_metadata, value, custom_type, required },
+    field: { value, custom_type, required },
     isLastField,
   } = useMessageContext();
   const [websiteUrl, setWebsiteUrl] = useState(value || "");
@@ -88,73 +87,51 @@ function WebsiteUrl() {
 
     if (url) {
       const urlHttp = urlCheck(url);
-      if (custom_type === FormType.UCRAFT_WEBSITE_URL) {
-        setLoader(true);
-        try {
-          const response = await axiosAiApi.post<UrlData, UrlResponse>(
-            "/",
-            {
-              page_url: urlHttp,
-            },
-            // the template matching process takes a long time, for this we extend the server response time
-            { timeout: 120000 }
-          );
+      setLoader(true);
+      try {
+        const response = await axiosAiApi.post<UrlData, UrlResponse>(
+          "/",
+          {
+            page_url: urlHttp,
+          },
+          // the template matching process takes a long time, for this we extend the server response time
+          { timeout: 120000 }
+        );
 
-          if (response?.data?.topRank) {
-            const topTemplateId = getTopTemplateId(response?.data?.topRank);
-            setLikeTemplateId(topTemplateId);
-            setCompleted(true);
-            setErrorText("");
-          } else {
-            setCompleted(false);
-            setErrorText("rasaForm.notExistsUrl");
-          }
-        } catch (error: any) {
-          if (error?.detail?.[0]?.type === AiErrorType.VALIDATION_FAILED) {
-            setCompleted(false);
-            setErrorText("rasaForm.notExistsUrl");
-          } else {
-            setErrorText("rasaForm.error");
-          }
-        } finally {
-          setLoader(false);
+        if (response?.data?.topRank) {
+          const topTemplateId = getTopTemplateId(response?.data?.topRank);
+          setLikeTemplateId(topTemplateId);
+          setCompleted(true);
+          setErrorText("");
+        } else {
+          setCompleted(false);
+          setErrorText("rasaForm.notExistsUrl");
         }
+      } catch (error: any) {
+        if (error?.detail?.[0]?.type === AiErrorType.VALIDATION_FAILED) {
+          setCompleted(false);
+          setErrorText("rasaForm.notExistsUrl");
+        } else {
+          setErrorText("rasaForm.error");
+        }
+      } finally {
+        setLoader(false);
       }
     }
   }, 1500);
 
   const handleFinish = async () => {
-    if (custom_type === FormType.UCRAFT_WEBSITE_URL) {
-      toggleAiTemplateByIdIframe({
-        data: {
-          address: SSO_URL,
-          templateId: likeTemplateId,
-          token: localStorage.getItem(AUTH_TOKEN_KEY),
-          projectUrl: field_metadata?.projectUrl || "",
-          industry: field_metadata?.industry || "",
-        },
-      });
-      setDisabled(true);
-      setCompleted(true);
-    } else {
-      const urlHttp = urlCheck(websiteUrl);
-      const isValidUrl = isUrl(urlHttp);
-      if (isValidUrl) {
-        sendMessageHandler &&
-          sendMessageHandler({
-            message: websiteUrl,
-            metadata: {
-              updateId: message.id,
-            },
-            updateActionsBody: updateMessages(websiteUrl),
-            isLastField,
-          });
-        setDisabled(true);
-        setCompleted(true);
-      } else {
-        setErrorText("editor.validUrlPrompt");
-      }
-    }
+    toggleAiTemplateByIdIframe({
+      data: {
+        address: SSO_URL,
+        templateId: likeTemplateId,
+        token: localStorage.getItem(AUTH_TOKEN_KEY),
+        projectUrl: message?.form?.fields?.form_website_url || "",
+        industry: message?.form?.fields?.form_website_type_of_project || "",
+      },
+    });
+    setDisabled(true);
+    setCompleted(true);
   };
 
   const handleSkip = () => {
