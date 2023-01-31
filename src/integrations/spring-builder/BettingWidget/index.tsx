@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useLayoutEffect, useMemo } from 'react';
+import React, { useEffect, useState, memo, useLayoutEffect, useMemo } from 'react'
 import { FILES_PATH } from './constants'
 import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback, BetFlowData } from '../types'
 import {
@@ -56,7 +56,6 @@ function BettingWidget ({
   useLayoutEffect(() => {
     const mainScript = document.getElementById('SP_WIDGET_JS_FILE')
     if (mainScript) {
-      console.log('Enter')
       mainScript.onload = function () {
         setIsLoaded(true)
       }
@@ -109,12 +108,6 @@ function BettingWidget ({
   const isLoading = useMemo(() => {
     return !messageData || !isLoaded
   }, [isLoaded, messageData])
-
-  const isLoading = useMemo(() => {
-    return !messageData || !isLoaded
-  }, [isLoaded, messageData])
-
-  console.log(messageData, 'MESSAGE_DATA::')
 
   return (
     <StyledWidgetWrapper $isDisabled={isDisabled} $isInWidget={isInWidget}>
