@@ -119,7 +119,7 @@ function DesignTemplate() {
       false
     );
     return () => removeListener();
-  }, [meta]);
+  }, []);
 
   useEffect(() => {
     if (error) {
