@@ -101,15 +101,12 @@ function WebsiteUrl() {
         if (response?.data?.topRank) {
           const topTemplateId = getTopTemplateId(response?.data?.topRank);
           setLikeTemplateId(topTemplateId);
-          setCompleted(true);
           setErrorText("");
         } else {
-          setCompleted(false);
           setErrorText("rasaForm.notExistsUrl");
         }
       } catch (error: any) {
         if (error?.detail?.[0]?.type === AiErrorType.VALIDATION_FAILED) {
-          setCompleted(false);
           setErrorText("rasaForm.notExistsUrl");
         } else {
           setErrorText("rasaForm.error");
@@ -118,7 +115,7 @@ function WebsiteUrl() {
         setLoader(false);
       }
     }
-  }, 1500);
+  }, 300);
 
   const handleFinish = async () => {
     toggleAiTemplateByIdIframe({

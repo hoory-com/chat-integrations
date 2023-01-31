@@ -57,6 +57,10 @@ function DesignTemplate() {
   const [getTemplateData, { data, error, loading }] = useLazyQuery(
     getTemplateThumbnailQuery
   );
+  let meta: any = null;
+  if (field?.options?.length) {
+    meta = field?.options[0].field_metadata;
+  }
 
   const listener = useCallback(
     ({
@@ -100,10 +104,10 @@ function DesignTemplate() {
   };
 
   useEffect(() => {
-    if (message?.form?.fields?.form_website_set_chosen_website_template) {
+    if (meta?.templateId) {
       getTemplateData({
         variables: {
-          id: message?.form?.fields?.form_website_set_chosen_website_template,
+          id: meta?.templateId,
         },
       });
     }
@@ -115,7 +119,7 @@ function DesignTemplate() {
       false
     );
     return () => removeListener();
-  }, []);
+  }, [meta]);
 
   useEffect(() => {
     if (error) {
@@ -134,9 +138,9 @@ function DesignTemplate() {
   const handleThisTemplate = () => {
     setErrorMsg("");
     const projectData = {
-      ...message.form?.fields,
-      projectUrl: message?.form?.fields?.form_website_url || "",
-      about: message?.form?.fields?.form_website_business_description || "",
+      ...meta,
+      projectUrl: meta?.projectUrl || "",
+      about: meta?.shortDescription || "",
       logo: localStorage.getItem(UPLOADED_LOGO_BASE64_STORAGE_KEY) || "",
     };
 

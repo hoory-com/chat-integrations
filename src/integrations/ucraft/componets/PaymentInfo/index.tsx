@@ -9,21 +9,21 @@ import { redirectToDashboard } from "../../helpers";
 function PaymentInfo() {
   const { t } = useTranslation("ui");
   const { color, field } = useMessageContext();
-
+  let meta: any = null;
+  if (field?.options?.length) {
+    meta = field?.options[0].field_metadata;
+  }
   function navigateToDashboard() {
     localStorage.removeItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);
 
-    // window.open(
-    //   redirectToDashboard(field?.options?[0]?.projectId || ""),
-    //   "_blank"
-    // );
+    window.open(redirectToDashboard(meta?.projectId || ""), "_blank");
   }
 
   return (
     <>
       <StyledPaymentDiv>
-        {/* <span>{field?.field_metadata?.planName || ""}</span> */}
-        {/* <StyledSpan>{field?.field_metadata?.nextBillingDate || ""}</StyledSpan> */}
+        <span>{meta?.planName || ""}</span>
+        <StyledSpan>{meta?.nextBillingDate || ""}</StyledSpan>
       </StyledPaymentDiv>
       <FormButton onClick={navigateToDashboard} color={color} isPrimary block>
         {t("rasaForm.goToDashboard")}

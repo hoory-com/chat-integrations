@@ -79,6 +79,7 @@ export type RasaOptions = {
   title: string;
   type: ButtonType;
   payload: string;
+  field_metadata?: Record<string, string>;
 };
 
 enum AttachmentType {
@@ -101,7 +102,7 @@ export type RasaFieldType = {
   title: string;
   placeholder?: string;
   fieldMetadata: fieldMetadataType;
-  options?: RasaOptions[] | string;
+  options?: RasaOptions[];
   value: string;
   required: boolean;
   custom_provider: string;
