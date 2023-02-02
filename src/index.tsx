@@ -1,6 +1,8 @@
-import React, { lazy, memo } from "react";
+import React, { lazy } from "react";
 import { ContextType, Provider as MessageProvider } from "./contexts";
 import Ucraft from "./integrations/ucraft";
+import { customSpringUserMessageRenderer } from "./integrations/spring-builder";
+import { safeReadJson } from "./helpers";
 
 /**
  * Spring builder
@@ -9,7 +11,7 @@ const SpringBuilderComponentsSwitcher = lazy(
   () => import("./integrations/spring-builder")
 );
 
-interface Props extends ContextType {}
+type Props = ContextType;
 
 function IntegrationWrapper(props: Props) {
   let Component = (
@@ -46,4 +48,24 @@ function IntegrationWrapper(props: Props) {
   return <MessageProvider value={props}>{Component}</MessageProvider>;
 }
 
-export const CustomFieldRenderer = memo(IntegrationWrapper);
+export const CustomFieldRenderer = IntegrationWrapper;
+
+export const customUserMessageRenderer = (message: any) => {
+  let messageObject;
+  if (message?.type === 0) messageObject = safeReadJson(message.body, {});
+  else messageObject = safeReadJson(message);
+
+  if (
+    !messageObject ||
+    !messageObject?.field ||
+    !messageObject?.field.custom_provider
+  )
+    return message;
+
+  switch (messageObject.field.custom_provider) {
+    case "SPRING_BUILDER":
+      return customSpringUserMessageRenderer(messageObject as any, message);
+  }
+
+  return message;
+};

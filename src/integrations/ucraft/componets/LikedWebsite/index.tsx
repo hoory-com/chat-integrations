@@ -13,7 +13,7 @@ function LikedWebsite() {
     sendMessageHandler,
     message,
     color,
-    field: { field_metadata, value },
+    field: { value },
   } = useMessageContext();
   const [completed, setCompleted] = useState(Boolean(value));
   const { updateMessages } = useUpdateMessages();
@@ -68,8 +68,8 @@ function LikedWebsite() {
       data: {
         address: SSO_URL,
         token: localStorage.getItem(AUTH_TOKEN_KEY),
-        projectUrl: field_metadata?.projectUrl || "",
-        industry: field_metadata?.industry || "",
+        projectUrl: message?.form?.fields?.form_website_url || "",
+        industry: message?.form?.fields?.form_website_type_of_project || "",
       },
     });
   };

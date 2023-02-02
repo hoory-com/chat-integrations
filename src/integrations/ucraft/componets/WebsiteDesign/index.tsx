@@ -91,28 +91,26 @@ function WebsiteDesign() {
   };
 
   return (
-    <div>
-      <ButtonsWrapper>
-        <FormButton
-          block
-          color={color}
-          disabled={completed}
-          onClick={openAITemplatesView}
-          isPrimary={clickedBtn === DesignButtons.AI_DESIGN}
-        >
-          {t("rasaForm.aiDesignBtnTextEmoji")}
-        </FormButton>
-        <FormButton
-          block
-          color={color}
-          disabled={completed}
-          onClick={handleTemplates}
-          isPrimary={clickedBtn === DesignButtons.TEMPLATE_DESIGN}
-        >
-          {t("rasaForm.templatesDesignBtnTextEmoji")}
-        </FormButton>
-      </ButtonsWrapper>
-    </div>
+    <ButtonsWrapper>
+      <FormButton
+        block
+        color={color}
+        disabled={completed}
+        onClick={openAITemplatesView}
+        isPrimary={clickedBtn === DesignButtons.AI_DESIGN}
+      >
+        {t("rasaForm.aiDesignBtnTextEmoji")}
+      </FormButton>
+      <FormButton
+        block
+        color={color}
+        disabled={completed}
+        onClick={handleTemplates}
+        isPrimary={clickedBtn === DesignButtons.TEMPLATE_DESIGN}
+      >
+        {t("rasaForm.templatesDesignBtnTextEmoji")}
+      </FormButton>
+    </ButtonsWrapper>
   );
 }
 

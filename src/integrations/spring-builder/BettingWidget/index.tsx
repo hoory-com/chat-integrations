@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { FILES_PATH } from './constants'
-import { ConfirmStepData, MarketStepData, TeamStepData, WidgetConfig, DepositFinalCallback } from '../types'
+import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
+import { FILES_PATH } from "./constants";
+import {
+  ConfirmStepData,
+  MarketStepData,
+  TeamStepData,
+  WidgetConfig,
+  DepositFinalCallback,
+  BetFlowData,
+} from "../types";
 import {
   StyledWidgetWrapper,
   StyledClickBlocker,
-  StyledLoadingSkeleton
-} from './styles'
+  StyledLoadingSkeleton,
+} from "./styles";
 
-export type SelectCallback = TeamStepData & MarketStepData & ConfirmStepData & DepositFinalCallback;
+export type SelectCallback = TeamStepData &
+  MarketStepData &
+  ConfirmStepData &
+  DepositFinalCallback;
 
 type Props = {
+  messageData: BetFlowData;
   widgetType?: string;
   onSelect: (data: SelectCallback) => void;
   isDisabled?: boolean;
@@ -27,73 +38,109 @@ declare global {
   }
 }
 
-function BettingWidget ({
+function BettingWidget({
   widgetType,
   onSelect,
   widgetConfig,
+  messageData,
   isDisabled,
   isInWidget,
   widgetKey,
   swarmUrl,
-  partnerId
+  partnerId,
 }: Props) {
-  const [isLoaded, setIsLoaded] = useState(Boolean(document.getElementById('SP_WIDGET_JS_FILE')))
-  const tempConfig: WidgetConfig = { ...widgetConfig }
+  const widgetDivRef = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const tempConfig: WidgetConfig = { ...widgetConfig };
   if (onSelect) {
-    const callbackFnName = `hoorySuccessCallback_${widgetKey}`
-    window[callbackFnName] = (data: TeamStepData & MarketStepData & ConfirmStepData) => {
+    const callbackFnName = `hoorySuccessCallback_${widgetKey}`;
+    window[callbackFnName] = (
+      data: TeamStepData & MarketStepData & ConfirmStepData
+    ) => {
       // don't call function on disabled widgets
-      if (isDisabled) return
+      if (isDisabled) return;
 
-      onSelect(data)
-      delete window[callbackFnName]
-    }
-    tempConfig.hasCallback = true
-    tempConfig.callbackName = callbackFnName
+      onSelect(data);
+      delete window[callbackFnName];
+    };
+    tempConfig.hasCallback = true;
+    tempConfig.callbackName = callbackFnName;
   }
 
   useEffect(() => {
-    window.partnerConfigs = {
-      swarmUrl: swarmUrl || 'wss://eu-swarm-ws-re.trexname.com/',
-      defaultOddAccept: ''
+    const swarmCustomUrl = swarmUrl || "wss://eu-swarm-ws-re.trexname.com/";
+    if (window?.partnerConfigs?.swarmUrl !== swarmCustomUrl) {
+      window.partnerConfigs = {
+        swarmUrl: swarmCustomUrl,
+        defaultOddAccept: "",
+        springConfig: {
+          partnerId: partnerId || 333,
+        },
+      };
     }
-    window.partnerConfigs.springConfig = {}
-    window.partnerConfigs.springConfig.partnerId = partnerId || 4
+  }, [swarmUrl, partnerId, window?.partnerConfigs]);
 
-    if (!isLoaded) {
-      const mainScript = document.createElement('script')
-      const runTimeScript = document.createElement('script')
-      const styledRef = document.createElement('link')
-      mainScript.id = 'SP_WIDGET_JS_FILE'
-      mainScript.src = `${FILES_PATH}/js/main.chunk.js?widgetKey=${widgetKey}`
-      runTimeScript.src = `${FILES_PATH}/js/runtime-main.js?widgetKey=${widgetKey}`
-      styledRef.href = `${FILES_PATH}/css/main.chunk.css?widgetKey=${widgetKey}`
-      styledRef.rel = 'stylesheet'
-      styledRef.type = 'text/css'
-      document.body.appendChild(mainScript)
-      document.body.appendChild(runTimeScript)
-      document.body.appendChild(styledRef)
+  const loadWidget = (script: any) => {
+    script.setAttribute("hoory-load", "1");
+    widgetDivRef.current?.setAttribute("data-loaded2", "false");
+    widgetDivRef.current?.setAttribute("data-loaded", "false");
+    (window as any)?.initHooryWidgets?.();
+  };
+
+  useLayoutEffect(() => {
+    const addedScript = document.getElementById("SP_WIDGET_JS_FILE");
+
+    if (!addedScript) {
+      console.log("SP_WIDGET_STATE:: not added script");
+      const mainScript = document.createElement("script");
+      const runTimeScript = document.createElement("script");
+      const styledRef = document.createElement("link");
+      mainScript.id = "SP_WIDGET_JS_FILE";
+      mainScript.src = `${FILES_PATH}/js/main.chunk.js?widgetKey=${widgetKey}`;
+      runTimeScript.src = `${FILES_PATH}/js/runtime-main.js?widgetKey=${widgetKey}`;
+      styledRef.href = `${FILES_PATH}/css/main.chunk.css?widgetKey=${widgetKey}`;
+      styledRef.rel = "stylesheet";
+      styledRef.type = "text/css";
+      document.body.appendChild(mainScript);
+      document.body.appendChild(runTimeScript);
+      document.body.appendChild(styledRef);
 
       mainScript.onload = function () {
         setIsLoaded(true);
-        (window as any).initHooryWidgets()
-      }
+        loadWidget(mainScript);
+      };
     } else {
-      (window as any).initHooryWidgets()
+      const isLoadedAttr = addedScript.getAttribute("hoory-load");
+      if (isLoadedAttr === "1") {
+        console.log("SP_WIDGET_STATE:: was added and loaded just initial");
+
+        loadWidget(addedScript);
+        setIsLoaded(true);
+      } else {
+        console.log(
+          "SP_WIDGET_STATE:: was added not loaded wait to load and then initial"
+        );
+
+        addedScript.onload = function () {
+          setIsLoaded(true);
+          loadWidget(addedScript);
+        };
+      }
     }
-  }, [isLoaded])
+  }, [isLoaded, document]);
 
   return (
     <StyledWidgetWrapper $isDisabled={isDisabled} $isInWidget={isInWidget}>
       <div
+        ref={widgetDivRef}
         data-widget={widgetType}
         data-configs={JSON.stringify(tempConfig)}
         data-loaded="false"
       />
       {isDisabled && <StyledClickBlocker />}
-      {!isLoaded && <StyledLoadingSkeleton />}
+      {(!messageData || !isLoaded) && <StyledLoadingSkeleton />}
     </StyledWidgetWrapper>
-  )
+  );
 }
 
-export default BettingWidget
+export default BettingWidget;
