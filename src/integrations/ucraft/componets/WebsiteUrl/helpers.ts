@@ -1,7 +1,7 @@
 import { TopRank } from "./types";
 
 export const urlCheck = (url: string) => {
-  if (url.indexOf("http://") == 0 || url.indexOf("https://") == 0) {
+  if (url.indexOf("http://") === 0 || url.indexOf("https://") === 0) {
     return url;
   } else {
     return `https://${url}`;

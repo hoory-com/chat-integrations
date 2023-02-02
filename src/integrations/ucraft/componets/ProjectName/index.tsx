@@ -57,7 +57,7 @@ function ProjectName() {
           sendMessageHandler({
             message: currentProjectName,
             metadata: {
-              projectUrl: projectUrl,
+              projectUrl,
               projectName: currentProjectName,
               updateId: message.id,
             },
