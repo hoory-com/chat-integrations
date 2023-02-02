@@ -11,7 +11,7 @@ export type TeamStepData = {
   name: string;
   team1_name: string;
   team2_name: string;
-}
+};
 
 export type MarketStepData = {
   marketType: string;
@@ -34,12 +34,12 @@ export type MarketStepData = {
   competitionId: number;
   team1: string;
   team2: string;
-}
+};
 
 export type ConfirmStepData = {
   status: string;
   message: string;
-}
+};
 
 export type LoginStepData = {
   auth_token: string;
@@ -49,43 +49,43 @@ export type LoginStepData = {
   username: string;
   email: string;
   status: string;
-}
+};
 
 export type DepositAmountCallback = {
-  status?: 'unauthorized' | 'cancel' | 'authorized';
+  status?: "unauthorized" | "cancel" | "authorized";
   data?: string; // amount
-}
+};
 
 export type DepositPaymentListCallback = {
   paymentId?: string;
-  status?: 'cancel'
-}
+  status?: "cancel";
+};
 
 export type DepositFinalCallback = {
-  payStatus?: 'success' | 'cancel' | 'fail' | 'pending';
-}
+  payStatus?: "success" | "cancel" | "fail" | "pending";
+};
 
 export type BetFlowData = {
   // betting flow
-  team_name: string,
-  competition: TeamStepData,
-  market: MarketStepData,
+  team_name: string;
+  competition: TeamStepData;
+  market: MarketStepData;
   // deposit flow
-  payment_amount: DepositAmountCallback,
-  payment_list: DepositPaymentListCallback,
-  payment_view: DepositFinalCallback,
+  payment_amount: DepositAmountCallback;
+  payment_list: DepositPaymentListCallback;
+  payment_view: DepositFinalCallback;
 
-  subMarket: string,
-  event: string,
-  eventBase: string,
-  confirmDetails: string,
-  amount: string,
-  gameRegion: string,
-  gameId: string,
-  competitionId: string,
-  eventId: string,
-  marketId: string
-}
+  subMarket: string;
+  event: string;
+  eventBase: string;
+  confirmDetails: string;
+  amount: string;
+  gameRegion: string;
+  gameId: string;
+  competitionId: string;
+  eventId: string;
+  marketId: string;
+};
 
 export type WidgetConfig = {
   // competition widget
@@ -112,10 +112,29 @@ export type WidgetConfig = {
   eventId?: number;
   // deposit
   isDeposit?: boolean;
-  actionType?: 'deposit';
+  actionType?: "deposit";
   paymentId?: string;
   amount?: string;
 };
 
-export type SpringBuilderWidgetType = 'HooryGameList' | 'HoorySearch' | 'HoorySingleGame' | 'HooryBetslip' | 'HooryAccount' | 'HooryBalance' | 'HooryPaymentAmount' | 'HooryPaymentList' | 'HooryPaymentView' | ''
-export type FieldType = 'COMPETITION' | 'MARKET' | 'CONFIRMATION_DETAILS' | 'BET_PLACE' | 'SIGNIN' | 'PAYMENT_LIST' | 'PAYMENT_AMOUNT' | 'PAYMENT_VIEW' | 'SHOW_BALANCE'
+export type SpringBuilderWidgetType =
+  | "HooryGameList"
+  | "HoorySearch"
+  | "HoorySingleGame"
+  | "HooryBetslip"
+  | "HooryAccount"
+  | "HooryBalance"
+  | "HooryPaymentAmount"
+  | "HooryPaymentList"
+  | "HooryPaymentView"
+  | "";
+export type FieldType =
+  | "COMPETITION"
+  | "MARKET"
+  | "CONFIRMATION_DETAILS"
+  | "BET_PLACE"
+  | "SIGNIN"
+  | "PAYMENT_LIST"
+  | "PAYMENT_AMOUNT"
+  | "PAYMENT_VIEW"
+  | "SHOW_BALANCE";
