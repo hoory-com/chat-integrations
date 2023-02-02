@@ -1,25 +1,18 @@
-import React, { memo, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useRef } from "react";
 import { v4 as uuid } from "uuid";
 import BettingWidget, { SelectCallback } from "./BettingWidget";
 import { useMessageContext } from "../../contexts";
-import {
-  BetFlowData,
-  SpringBuilderWidgetType,
-  WidgetConfig,
-} from "./types";
-import { StyledSkipButton, StyledSkipButtonWrapper } from "./styles";
+import { BetFlowData, SpringBuilderWidgetType, WidgetConfig } from "./types";
 import { useFormSlots } from "../../hooks";
+import { RasaFieldType } from "../../constants";
 
 function BetFlowMessage() {
   const { isInWidget, sendMessageHandler, isLastMessage, field } =
     useMessageContext();
   const widgetKey = useRef(uuid());
 
-  const { t } = useTranslation("ui");
   const messageData = useFormSlots() as BetFlowData;
   const currentFieldType = field?.custom_type as any;
-  console.log(currentFieldType, 'CURRENT_FIELD_TYPE:::')
 
   const tempWidgetConfig: WidgetConfig = {};
 
@@ -81,7 +74,7 @@ function BetFlowMessage() {
   const handleSelectBetOption = (optionData: SelectCallback) => {
     const metadata: Record<string, any> = {};
     let messageToSend = "";
-    messageToSend = JSON.stringify(optionData);
+    messageToSend = JSON.stringify({ data: optionData, field });
 
     if (
       currentFieldType === "CONFIRMATION_DETAILS" ||
@@ -152,40 +145,50 @@ function BetFlowMessage() {
     sendMessageHandler &&
       sendMessageHandler({
         message: messageToSend,
-        addToRedux: false,
+        addToRedux: true,
       });
   };
-
-  const handleSkipButtonClick = () => {
-    sendMessageHandler &&
-      sendMessageHandler({
-        message: "Cancel",
-      });
-  };
-
-  const showCancelButton = false;
 
   return (
-    <>
-      <BettingWidget
-        messageData={messageData}
-        isInWidget={isInWidget}
-        isDisabled={isLastMessage}
-        widgetConfig={tempWidgetConfig}
-        widgetType={widgetType}
-        onSelect={handleSelectBetOption}
-        widgetKey={widgetKey.current}
-      />
-
-      {showCancelButton && (
-        <StyledSkipButtonWrapper key="StyledSkipButtonWrapper">
-          <StyledSkipButton onClick={handleSkipButtonClick}>
-            {t("messages.contactAndChat")}
-          </StyledSkipButton>
-        </StyledSkipButtonWrapper>
-      )}
-    </>
+    <BettingWidget
+      messageData={messageData}
+      isInWidget={isInWidget}
+      isDisabled={isLastMessage}
+      widgetConfig={tempWidgetConfig}
+      widgetType={widgetType}
+      onSelect={handleSelectBetOption}
+      widgetKey={widgetKey.current}
+    />
   );
 }
 
-export default memo(BetFlowMessage);
+export default BetFlowMessage;
+
+export const customSpringUserMessageRenderer = (
+  messageObject: {
+    field: RasaFieldType;
+    data: any;
+  },
+  message: any
+) => {
+  switch (messageObject?.field?.custom_type as string) {
+    case "COMPETITION":
+      return `${messageObject.data?.team1_name || ""} vs ${
+        messageObject.data?.team2_name || ""
+      }`;
+    case "MARKET":
+      return `${messageObject.data?.marketName || ""} - ${
+        messageObject.data?.eventName || ""
+      }`;
+    case "PAYMENT_AMOUNT":
+      return `${messageObject.data?.data || ""}`;
+    case "PAYMENT_LIST":
+      return `ID: ${messageObject.data?.paymentId || ""}`;
+    // case "PAYMENT_VIEW":
+    // case "BET_PLACE":
+    // case "CONFIRMATION_DETAILS":
+    // case "SHOW_BALANCE":
+    //   return "Hi";
+  }
+  return message;
+};

@@ -11,7 +11,7 @@ export function useFormSlots(): Record<
   const returnObject = {};
   Object.keys(messageFields).forEach((item) => {
     const fieldValue = isJsonString(messageFields[item])
-      ? safeReadJson(messageFields[item])
+      ? safeReadJson(messageFields[item], {}).data || {}
       : messageFields[item];
     const fieldName = item.replace(`form_${message.form?.title || ""}_`, "");
 
