@@ -8,7 +8,7 @@ function ProjectUrl() {
 
   return (
     <UrlContent>
-      <ProjectUrlWrapper ellipsis={true} title={projectUrl}>
+      <ProjectUrlWrapper ellipsis title={projectUrl}>
         {projectUrl || defaultProjectName}
       </ProjectUrlWrapper>
       <DomainName>.{PROJECT_URL}</DomainName>

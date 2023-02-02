@@ -57,6 +57,10 @@ function DesignTemplate() {
   const [getTemplateData, { data, error, loading }] = useLazyQuery(
     getTemplateThumbnailQuery
   );
+  let meta: any = null;
+  if (field?.options?.length) {
+    meta = field?.options[0].field_metadata;
+  }
 
   const listener = useCallback(
     ({
@@ -100,8 +104,12 @@ function DesignTemplate() {
   };
 
   useEffect(() => {
-    if (field?.field_metadata?.templateId) {
-      getTemplateData({ variables: { id: field.field_metadata.templateId } });
+    if (meta?.templateId) {
+      getTemplateData({
+        variables: {
+          id: meta?.templateId,
+        },
+      });
     }
 
     window.addEventListener(
@@ -130,9 +138,9 @@ function DesignTemplate() {
   const handleThisTemplate = () => {
     setErrorMsg("");
     const projectData = {
-      ...field.field_metadata,
-      projectUrl: field?.field_metadata?.projectUrl || "",
-      about: field?.field_metadata?.shortDescription || "",
+      ...meta,
+      projectUrl: meta?.projectUrl || "",
+      about: meta?.shortDescription || "",
       logo: localStorage.getItem(UPLOADED_LOGO_BASE64_STORAGE_KEY) || "",
     };
 
@@ -150,7 +158,7 @@ function DesignTemplate() {
       data: {
         address: SSO_URL,
         token: localStorage.getItem(AUTH_TOKEN_KEY),
-        anotherTemplate: anotherTemplate,
+        anotherTemplate,
       },
     });
     setErrorMsg("");
@@ -172,7 +180,9 @@ function DesignTemplate() {
           <TemplateInfo>
             <TemplateName>{template.name}</TemplateName>
             <TemplateIndustry>
-              {t(`rasaForm.${field?.field_metadata?.industry}`)}
+              {t(
+                `rasaForm.${message?.form?.fields?.form_website_type_of_project}`
+              )}
             </TemplateIndustry>
           </TemplateInfo>
           <TemplateState>

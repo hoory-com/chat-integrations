@@ -9,7 +9,11 @@ import { parse } from "query-string";
 import { Form } from "antd";
 import { useTranslation } from "react-i18next";
 import InputCheckIcon from "../../../../assets/svg/inputCheckIcon.svg";
-import { ChatPagePostMessage, EMAIL_MAX_LENGTH } from "../../constants";
+import {
+  ChatPagePostMessage,
+  EMAIL_MAX_LENGTH,
+  ErrorResponse,
+} from "../../constants";
 import { FormType } from "../../../../constants";
 import {
   FormInput,
@@ -18,13 +22,11 @@ import {
 } from "../../../../components";
 import { ACCOUNTS_URL, AUTH_TOKEN_KEY } from "../../helpers/constants";
 import { isEmail } from "../../../../helpers/validationHelpers";
-import { useFocus } from "../../../../hooks";
+import { useFocus, useUpdateMessages } from "../../../../hooks";
 import { ssoServices } from "../../helpers";
 import { ErrorCodes } from "../../helpers/types";
-import type { ErrorResponse } from "../../constants";
 import { useMessageContext } from "../../../../contexts";
 import { toggleSignInIframe } from "../../postMessages";
-import { useUpdateMessages } from "../../../../hooks";
 import { ErrorMessage } from "../../styles";
 
 function UserEmail() {
@@ -35,7 +37,7 @@ function UserEmail() {
     color,
     message,
     visitor,
-    field: { value, field_metadata, custom_type },
+    field: { value, custom_type },
   } = useMessageContext();
   const { search } = useLocation();
   const { email: currentEmail } = parse(search);
@@ -129,7 +131,7 @@ function UserEmail() {
     try {
       const response = await ssoServices.signup({
         email,
-        name: field_metadata?.userName || "User",
+        name: message?.form?.fields?.form_website_person || "User",
       });
 
       if (!response) {

@@ -1,6 +1,6 @@
 import { ChatPagePostMessage } from "./constants";
 
-type DataType = { [key: string]: any };
+type DataType = Record<string, any>;
 
 export function togglePaymentIframe(data: DataType): void {
   window.parent.postMessage(
