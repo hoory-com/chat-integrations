@@ -123,7 +123,7 @@ function WebsiteUrl() {
         address: SSO_URL,
         templateId: likeTemplateId,
         token: localStorage.getItem(AUTH_TOKEN_KEY),
-        projectUrl: message?.form?.fields?.form_website_url || "",
+        projectUrl: websiteUrl || "",
         industry: message?.form?.fields?.form_website_type_of_project || "",
       },
     });
