@@ -82,8 +82,6 @@ function BettingWidget({
 
   const loadWidget = (script: any) => {
     script.setAttribute("hoory-load", "1");
-    widgetDivRef.current?.setAttribute("data-loaded2", "false");
-    widgetDivRef.current?.setAttribute("data-loaded", "false");
     (window as any)?.initHooryWidgets?.();
   };
 
