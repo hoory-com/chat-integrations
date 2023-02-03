@@ -172,23 +172,17 @@ export const customSpringUserMessageRenderer = (messageObject: {
 }) => {
   switch (messageObject?.field?.custom_type as string) {
     case "COMPETITION":
-      return (
-        <>
-          {messageObject.data?.team1_name || ""} vs
-          {messageObject.data?.team2_name || ""}
-        </>
-      );
+      return `${messageObject.data?.team1_name || ""} vs ${
+        messageObject.data?.team2_name || ""
+      }`;
     case "MARKET":
-      return (
-        <>
-          {messageObject.data?.marketName || ""} -
-          {messageObject.data?.eventName || ""}
-        </>
-      );
+      return `${messageObject.data?.marketName || ""} - ${
+        messageObject.data?.eventName || ""
+      }`;
     case "PAYMENT_AMOUNT":
-      return <>{messageObject.data?.data || ""}</>;
+      return `${messageObject.data?.data || ""}`;
     case "PAYMENT_LIST":
-      return <>ID: {messageObject.data?.paymentId || ""}</>;
+      return `ID: ${messageObject.data?.paymentId || ""}`;
     // case "PAYMENT_VIEW":
     // case "BET_PLACE":
     // case "CONFIRMATION_DETAILS":
