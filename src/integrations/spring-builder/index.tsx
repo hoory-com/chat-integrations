@@ -91,8 +91,7 @@ function BetFlowMessage() {
           messageToSend = "Sign in";
           break;
         case "error":
-          // messageToSend = '/error'
-          // metadata.error = optionData.message || 'unknown'
+          messageToSend = "";
           break;
       }
     } else if (currentFieldType === "Sign in") {
@@ -110,6 +109,7 @@ function BetFlowMessage() {
           messageToSend = "/restart";
           break;
         case "error":
+          messageToSend = "";
           break;
       }
     } else if (currentFieldType === "PAYMENT_LIST") {
