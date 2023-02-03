@@ -82,7 +82,7 @@ function BetFlowMessage() {
     ) {
       switch (optionData.status) {
         case "success":
-          messageToSend = "success";
+          messageToSend = "/ack";
           break;
         case "cancel":
           messageToSend = "/restart";
@@ -108,6 +108,8 @@ function BetFlowMessage() {
           break;
         case "cancel":
           messageToSend = "/restart";
+          break;
+        case "error":
           break;
       }
     } else if (currentFieldType === "PAYMENT_LIST") {
