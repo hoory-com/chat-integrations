@@ -1,7 +1,7 @@
 import React from "react";
 import ImageLoadingWrapper from "../ImageLoadingWrapper";
-import LoaderWhiteIcon from "@hoory-com/shared-assets/icons/LoaderWhiteIcon/index.svg";
-import LoaderBlackIcon from "@hoory-com/shared-assets/icons/LoaderBlackIcon/index.svg";
+import LoaderWhiteIcon from "../../assets/svg/loader-white.svg";
+import LoaderBlackIcon from "../../assets/svg/loader-black.svg";
 
 interface Props {
   text: string;
