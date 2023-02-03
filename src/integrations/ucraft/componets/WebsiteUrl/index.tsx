@@ -115,7 +115,7 @@ function WebsiteUrl() {
         setLoader(false);
       }
     }
-  }, 300);
+  }, 1000);
 
   const handleFinish = async () => {
     toggleAiTemplateByIdIframe({

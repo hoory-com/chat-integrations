@@ -1,26 +1,30 @@
-import styled from 'styled-components'
-import { ifProp, inMobile } from 'styled-components-helpers'
-import { Skeleton } from 'antd'
+import styled from "styled-components";
+import { ifProp, inMobile } from "styled-components-helpers";
+import { Skeleton } from "antd";
 
 export const StyledClickBlocker = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
-`
+`;
 
-export const StyledWidgetWrapper = styled.div<{ $isDisabled?: boolean; $isInWidget?: boolean }>`
+export const StyledWidgetWrapper = styled.div<{
+  $isDisabled?: boolean;
+  $isInWidget?: boolean;
+}>`
   width: calc(100vw - 99px);
-  font-family: geomanist, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji' !important;
-  
+  font-family: geomanist, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+
   border-radius: 13px;
   overflow: hidden;
   background: #fff;
-  
+  margin-top: 11px;
+
   ${ifProp(
-    '$isInWidget',
+    "$isInWidget",
     `
     margin-right: auto;
     `,
@@ -30,7 +34,7 @@ export const StyledWidgetWrapper = styled.div<{ $isDisabled?: boolean; $isInWidg
   )}
 
   ${ifProp(
-    '$isDisabled',
+    "$isDisabled",
     `
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
@@ -53,7 +57,7 @@ export const StyledWidgetWrapper = styled.div<{ $isDisabled?: boolean; $isInWidg
     position: relative !important;
   }
   .paymentMethods__gridLayout > div {
-    cursor: ${ifProp('$isDisabled', 'not-allowed', 'pointer')};
+    cursor: ${ifProp("$isDisabled", "not-allowed", "pointer")};
   }
   .keyboard__container {
     display: none;
@@ -63,9 +67,9 @@ export const StyledWidgetWrapper = styled.div<{ $isDisabled?: boolean; $isInWidg
     display: block;
   }
   `)}
-`
+`;
 
 export const StyledLoadingSkeleton = styled(Skeleton)`
   height: 200px;
   width: 100%;
-`
+`;
