@@ -13,7 +13,6 @@ import { SSO_URL } from "./constants";
 import { FormType } from "../../constants";
 import { getUcraftAuthToken } from "./helpers";
 import { useApolloClient } from "../../hooks";
-import { useMessageContext } from "../../contexts";
 import ProductDescriptionSave from "./componets/ProductDescriptionSave";
 
 type Props = {
@@ -26,7 +25,6 @@ function Ucraft({ type }: Props) {
     authToken: getUcraftAuthToken(),
   };
   const client = useApolloClient({ apolloClientParams });
-  const { field } = useMessageContext();
   const renderComponent = () => {
     switch (type) {
       /**
@@ -56,12 +54,7 @@ function Ucraft({ type }: Props) {
     return null;
   };
 
-  return (
-    <ApolloProvider client={client}>
-      <div>{field.question || field.title}</div>
-      {renderComponent()}
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={client}>{renderComponent()}</ApolloProvider>;
 }
 
 export default Ucraft;
