@@ -22,6 +22,7 @@ export const StyledWidgetWrapper = styled.div<{
   overflow: hidden;
   background: #fff;
   margin-top: 11px;
+  position: relative;
 
   ${ifProp(
     "$isInWidget",
