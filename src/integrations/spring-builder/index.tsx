@@ -164,13 +164,10 @@ function BetFlowMessage() {
 
 export default BetFlowMessage;
 
-export const customSpringUserMessageRenderer = (
-  messageObject: {
-    field: RasaFieldType;
-    data: any;
-  },
-  message: any
-) => {
+export const customSpringUserMessageRenderer = (messageObject: {
+  field: RasaFieldType;
+  data: any;
+}) => {
   switch (messageObject?.field?.custom_type as string) {
     case "COMPETITION":
       return `${messageObject.data?.team1_name || ""} vs ${
@@ -190,5 +187,5 @@ export const customSpringUserMessageRenderer = (
     // case "SHOW_BALANCE":
     //   return "Hi";
   }
-  return message;
+  return null;
 };
