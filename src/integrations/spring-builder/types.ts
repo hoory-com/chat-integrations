@@ -133,7 +133,7 @@ export type FieldType =
   | "MARKET"
   | "CONFIRMATION_DETAILS"
   | "BET_PLACE"
-  | "SIGNIN"
+  | "Sign in"
   | "PAYMENT_LIST"
   | "PAYMENT_AMOUNT"
   | "PAYMENT_VIEW"
