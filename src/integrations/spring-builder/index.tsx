@@ -88,7 +88,7 @@ function BetFlowMessage() {
           messageToSend = "/restart";
           break;
         case "unauthorized":
-          messageToSend = "SIGNIN";
+          messageToSend = "Sing in";
           break;
         case "error":
           // messageToSend = '/error'
@@ -97,7 +97,7 @@ function BetFlowMessage() {
       }
     } else if (currentFieldType === "SIGNIN") {
       if (optionData.status === "success") {
-        messageToSend = "BET_PLACE";
+        messageToSend = "Place it";
       } else {
         messageToSend = "/restart";
       }
