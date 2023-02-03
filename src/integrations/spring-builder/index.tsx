@@ -45,7 +45,7 @@ function BetFlowMessage() {
       tempWidgetConfig.competitionId = messageData.market.competitionId;
 
       break;
-    case "SIGNIN":
+    case "Sign in":
       widgetType = "HooryAccount";
       break;
     case "SHOW_BALANCE":
@@ -88,14 +88,14 @@ function BetFlowMessage() {
           messageToSend = "/restart";
           break;
         case "unauthorized":
-          messageToSend = "Sing in";
+          messageToSend = "Sign in";
           break;
         case "error":
           // messageToSend = '/error'
           // metadata.error = optionData.message || 'unknown'
           break;
       }
-    } else if (currentFieldType === "SIGNIN") {
+    } else if (currentFieldType === "Sign in") {
       if (optionData.status === "success") {
         messageToSend = "Place it";
       } else {
@@ -104,7 +104,7 @@ function BetFlowMessage() {
     } else if (currentFieldType === "PAYMENT_AMOUNT") {
       switch (optionData.status) {
         case "unauthorized":
-          messageToSend = "SIGNIN";
+          messageToSend = "Sign in";
           break;
         case "cancel":
           messageToSend = "/restart";
