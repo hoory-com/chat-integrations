@@ -8,7 +8,7 @@ import { toggleAiTemplateIframe } from "../../postMessages";
 import { ButtonsWrapper } from "../../styles";
 
 function LikedWebsite() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     sendMessageHandler,
     message,

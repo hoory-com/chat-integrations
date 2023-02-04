@@ -24,7 +24,7 @@ import { toggleAiTemplateByIdIframe } from "../../postMessages";
 import { ErrorMessage, StyledSkipButton } from "../../styles";
 
 function WebsiteUrl() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     sendMessageHandler,
     color,
@@ -64,6 +64,8 @@ function WebsiteUrl() {
               updateActionsBody: updateMessages(websiteUrl),
             });
           setDisabled(true);
+          setCompleted(true);
+          setIsSkipped(true);
         }
       }
     },
@@ -127,8 +129,6 @@ function WebsiteUrl() {
         industry: message?.form?.fields?.form_website_type_of_project || "",
       },
     });
-    setDisabled(true);
-    setCompleted(true);
   };
 
   const handleSkip = () => {
@@ -142,9 +142,6 @@ function WebsiteUrl() {
         changeLastMessage: true,
         isLastField,
       });
-    setCompleted(true);
-    setIsSkipped(true);
-    setDisabled(true);
   };
 
   return (

@@ -1,3 +1,4 @@
+export * from "./translations";
 import React, { lazy } from "react";
 import { ContextType, Provider as MessageProvider } from "./contexts";
 import Ucraft from "./integrations/ucraft";
