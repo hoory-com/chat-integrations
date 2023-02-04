@@ -74,7 +74,7 @@ function BettingWidget({
         swarmUrl: swarmCustomUrl,
         defaultOddAccept: "",
         springConfig: {
-          partnerId: partnerId || 333,
+          partnerId: partnerId || 4,
         },
       };
     }
