@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FormButton } from "../../../../components";
+import { useMessageContext } from "../../../../contexts";
+import { useUpdateMessages } from "../../../../hooks";
+import { redirectToDashboard } from "../../helpers";
 import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../constants";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
-import { useMessageContext } from "../../../../contexts";
-import { redirectToDashboard } from "../../helpers";
-import { useUpdateMessages } from "../../../../hooks";
 
 function PaymentInfo() {
   const { t } = useTranslation("ui");
