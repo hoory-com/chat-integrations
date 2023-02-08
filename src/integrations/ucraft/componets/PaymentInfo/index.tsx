@@ -5,18 +5,37 @@ import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../constants";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
 import { useMessageContext } from "../../../../contexts";
 import { redirectToDashboard } from "../../helpers";
+import { useUpdateMessages } from "../../../../hooks";
 
 function PaymentInfo() {
   const { t } = useTranslation("ui");
-  const { color, field } = useMessageContext();
+  const {
+    color,
+    field,
+    sendMessageHandler,
+    message,
+    isLastField,
+    field: { value },
+  } = useMessageContext();
   let meta: any = null;
   if (field?.options?.length) {
     meta = field?.options[0].field_metadata;
   }
+  const { updateMessages } = useUpdateMessages();
   function navigateToDashboard() {
     localStorage.removeItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);
 
     window.open(redirectToDashboard(meta?.projectId || ""), "_blank");
+    sendMessageHandler &&
+      sendMessageHandler({
+        message: t("rasaForm.goToDashboard"),
+        metadata: {
+          updateId: message.id,
+        },
+        updateActionsBody: updateMessages(t("rasaForm.goToDashboard")),
+        changeLastMessage: true,
+        isLastField,
+      });
   }
 
   return (
@@ -25,7 +44,13 @@ function PaymentInfo() {
         <span>{meta?.planName || ""}</span>
         <StyledSpan>{meta?.nextBillingDate || ""}</StyledSpan>
       </StyledPaymentDiv>
-      <FormButton onClick={navigateToDashboard} color={color} isPrimary block>
+      <FormButton
+        disabled={Boolean(value)}
+        onClick={navigateToDashboard}
+        color={color}
+        isPrimary
+        block
+      >
         {t("rasaForm.goToDashboard")}
       </FormButton>
     </>
