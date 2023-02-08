@@ -80,7 +80,8 @@ function BettingWidget({
     }
   }, [swarmUrl, partnerId, window?.partnerConfigs]);
 
-  const loadWidget = (script: any) => {
+  const initializeWidget = (script: any) => {
+    setIsLoaded(true);
     script.setAttribute("hoory-load", "1");
     (window as any)?.initHooryWidgets?.();
   };
@@ -104,24 +105,21 @@ function BettingWidget({
       document.body.appendChild(styledRef);
 
       mainScript.onload = function () {
-        setIsLoaded(true);
-        loadWidget(mainScript);
+        initializeWidget(mainScript);
       };
     } else {
       const isLoadedAttr = addedScript.getAttribute("hoory-load");
       if (isLoadedAttr === "1") {
         console.log("SP_WIDGET_STATE:: was added and loaded just initial");
 
-        loadWidget(addedScript);
-        setIsLoaded(true);
+        initializeWidget(addedScript);
       } else {
         console.log(
           "SP_WIDGET_STATE:: was added not loaded wait to load and then initial"
         );
 
         addedScript.onload = function () {
-          setIsLoaded(true);
-          loadWidget(addedScript);
+          initializeWidget(addedScript);
         };
       }
     }
@@ -136,7 +134,10 @@ function BettingWidget({
         data-loaded="false"
       />
       {isDisabled && <StyledClickBlocker />}
-      {(!messageData || !isLoaded) && <StyledLoadingSkeleton />}
+      {(!messageData ||
+        widgetDivRef.current?.getAttribute("data-loaded") !== "true") && (
+        <StyledLoadingSkeleton />
+      )}
     </StyledWidgetWrapper>
   );
 }

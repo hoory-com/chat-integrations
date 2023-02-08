@@ -82,7 +82,7 @@ function BetFlowMessage() {
     ) {
       switch (optionData.status) {
         case "success":
-          messageToSend = "success";
+          messageToSend = "/ack";
           break;
         case "cancel":
           messageToSend = "/restart";
@@ -91,8 +91,7 @@ function BetFlowMessage() {
           messageToSend = "Sign in";
           break;
         case "error":
-          // messageToSend = '/error'
-          // metadata.error = optionData.message || 'unknown'
+          messageToSend = "";
           break;
       }
     } else if (currentFieldType === "Sign in") {
@@ -108,6 +107,9 @@ function BetFlowMessage() {
           break;
         case "cancel":
           messageToSend = "/restart";
+          break;
+        case "error":
+          messageToSend = "";
           break;
       }
     } else if (currentFieldType === "PAYMENT_LIST") {
@@ -164,13 +166,10 @@ function BetFlowMessage() {
 
 export default BetFlowMessage;
 
-export const customSpringUserMessageRenderer = (
-  messageObject: {
-    field: RasaFieldType;
-    data: any;
-  },
-  message: any
-) => {
+export const customSpringUserMessageRenderer = (messageObject: {
+  field: RasaFieldType;
+  data: any;
+}) => {
   switch (messageObject?.field?.custom_type as string) {
     case "COMPETITION":
       return `${messageObject.data?.team1_name || ""} vs ${
@@ -190,5 +189,5 @@ export const customSpringUserMessageRenderer = (
     // case "SHOW_BALANCE":
     //   return "Hi";
   }
-  return message;
+  return null;
 };
