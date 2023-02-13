@@ -87,7 +87,7 @@ function DesignTemplate() {
       if (type === ChatPagePostMessage.SET_TEMPLATE_ID) {
         sendMessageHandler &&
           sendMessageHandler({
-            message: t("rasaForm.templatesDesignBtnText"),
+            message: t("rasaForm.selectAnother"),
             metadata: {
               templateId: data.templateId,
               updateId: message.id,
