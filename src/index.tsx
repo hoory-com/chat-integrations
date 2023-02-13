@@ -59,14 +59,14 @@ export const customUserMessageRenderer = (message: any) => {
   if (
     !messageObject ||
     !messageObject?.field ||
-    !messageObject?.field.custom_provider
+    !messageObject?.field?.custom_provider
   )
-    return message;
+    return null;
 
   switch (messageObject.field.custom_provider) {
     case "SPRING_BUILDER":
-      return customSpringUserMessageRenderer(messageObject as any, message);
+      return customSpringUserMessageRenderer(messageObject as any);
   }
 
-  return message;
+  return null;
 };
