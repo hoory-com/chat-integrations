@@ -102,7 +102,7 @@ function Base64Uploader({
             onChange={handleChange}
             customRequest={onFileAdded}
             showUploadList={false}
-            disabled={isSkipped || Boolean(uploadedLogo)}
+            disabled={isSkipped || Boolean(uploadedLogo) || isSaved}
           >
             {loading ? (
               <LoaderWrapper src={UploadLoadingIcon} size="36px" />
