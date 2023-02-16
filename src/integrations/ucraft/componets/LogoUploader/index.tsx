@@ -11,7 +11,7 @@ import { useUpdateMessages } from "../../../../hooks";
 import { StyledButton } from "./styles";
 
 function LogoUploader() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     sendMessageHandler,
     color,

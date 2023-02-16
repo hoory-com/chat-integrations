@@ -16,7 +16,7 @@ import { ErrorMessage } from "../../styles";
 
 function ProjectName() {
   const [form] = Form.useForm();
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const [generateProjectName] = useMutation(generateProjectNameMutation);
   const {
     sendMessageHandler,

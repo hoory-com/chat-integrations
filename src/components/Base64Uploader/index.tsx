@@ -31,7 +31,7 @@ function Base64Uploader({
   isSaved,
   isSkipped,
 }: Props) {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const [selectedFile, setSelectedFile] = useState<UploadFile | undefined>();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

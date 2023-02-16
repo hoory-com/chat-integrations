@@ -7,7 +7,7 @@ import { useMessageContext } from "../../../../contexts";
 import { redirectToDashboard } from "../../helpers";
 
 function PaymentInfo() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const { color, field } = useMessageContext();
   let meta: any = null;
   if (field?.options?.length) {

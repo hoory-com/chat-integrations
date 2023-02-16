@@ -30,7 +30,7 @@ import { toggleSignInIframe } from "../../postMessages";
 import { ErrorMessage } from "../../styles";
 
 function UserEmail() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const [form] = Form.useForm();
   const {
     sendMessageHandler,
