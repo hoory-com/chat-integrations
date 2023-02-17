@@ -31,7 +31,7 @@ function Base64Uploader({
   isSaved,
   isSkipped,
 }: Props) {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const [selectedFile, setSelectedFile] = useState<UploadFile | undefined>();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -102,7 +102,7 @@ function Base64Uploader({
             onChange={handleChange}
             customRequest={onFileAdded}
             showUploadList={false}
-            disabled={isSkipped || Boolean(uploadedLogo)}
+            disabled={isSkipped || Boolean(uploadedLogo) || isSaved}
           >
             {loading ? (
               <LoaderWrapper src={UploadLoadingIcon} size="36px" />

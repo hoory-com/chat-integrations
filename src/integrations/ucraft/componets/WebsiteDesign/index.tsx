@@ -18,7 +18,7 @@ enum DesignButtons {
 }
 
 function WebsiteDesign() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     sendMessageHandler,
     color,

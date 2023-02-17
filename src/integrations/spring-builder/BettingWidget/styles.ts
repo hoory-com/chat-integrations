@@ -68,6 +68,14 @@ export const StyledWidgetWrapper = styled.div<{
     display: block;
   }
   `)}
+
+  .hooryBetslip__footer {
+    padding: 0 12px 8px 12px !important;
+  }
+  .predefinedStakesWrapper {
+    padding: 8px 12px !important;
+    margin-left: -2px;
+  }
 `;
 
 export const StyledLoadingSkeleton = styled(Skeleton)`

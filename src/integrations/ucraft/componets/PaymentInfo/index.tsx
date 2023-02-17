@@ -8,7 +8,7 @@ import { UPLOADED_LOGO_BASE64_STORAGE_KEY } from "../../constants";
 import { StyledPaymentDiv, StyledSpan } from "./styles";
 
 function PaymentInfo() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     color,
     field,

@@ -11,7 +11,7 @@ import { useUpdateMessages } from "../../../../hooks";
 import { StyledButton } from "./styles";
 
 function LogoUploader() {
-  const { t } = useTranslation("ui");
+  const { t } = useTranslation("ci");
   const {
     sendMessageHandler,
     color,
@@ -19,8 +19,7 @@ function LogoUploader() {
     field: { value },
   } = useMessageContext();
   const { updateMessages } = useUpdateMessages();
-  const logo = localStorage.getItem(UPLOADED_LOGO_BASE64_STORAGE_KEY);
-  const [uploadedLogo, setUploadedLogo] = useState(logo || "");
+  const [uploadedLogo, setUploadedLogo] = useState("");
   const [isSaved, setIsSaved] = useState(
     Boolean(value && value === RASA_UPLOAD_COMPLETED)
   );
