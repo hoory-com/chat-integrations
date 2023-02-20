@@ -151,13 +151,6 @@ export type MessageResponse = {
   conversationId: string;
   conversation: string;
   draft: string;
-  knowledgeBaseUri: string;
-  knowledgeBaseHighlightStart: number;
-  knowledgeBaseHighlightEnd: number;
-  knowledgeBaseImageUrl: string;
-  knowledgeBaseTitle: string;
-  googleUrl: string;
-  googleSearchText: string;
   disabled: boolean;
   deliveryType: string;
   attachmentsList: Array<Attachment>;
