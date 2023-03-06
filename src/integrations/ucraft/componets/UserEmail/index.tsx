@@ -211,7 +211,7 @@ function UserEmail() {
           onClick={openSignInIframe}
         >
           <LoaderTextSwitcher
-            text={t(!emailExist ? "rasaForm.confirm" : "form.login")}
+            text={t(!emailExist ? "rasaForm.confirm" : "rasaForm.signIn")}
             loader={loading}
           />
         </FormButton>
