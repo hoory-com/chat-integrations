@@ -16,7 +16,7 @@
     "clean": "rimraf lib my-react-package-*.tgz",
     "watch": "rollup -cw",
     "link": "echo \"No link needed\"",
-    "publish-npm": "yarn build && npm publish --access=public --latest"
+    "publish-npm": "npm publish --access=public --latest"
   },
   "keywords": [],
   "license": "MIT",
