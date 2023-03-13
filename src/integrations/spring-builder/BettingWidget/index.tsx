@@ -90,6 +90,7 @@ function BettingWidget({
     const addedScript = document.getElementById("SP_WIDGET_JS_FILE");
 
     if (!addedScript) {
+      // eslint-disable-next-line no-console
       console.log("SP_WIDGET_STATE:: not added script");
       const mainScript = document.createElement("script");
       const runTimeScript = document.createElement("script");
@@ -110,10 +111,12 @@ function BettingWidget({
     } else {
       const isLoadedAttr = addedScript.getAttribute("hoory-load");
       if (isLoadedAttr === "1") {
+        // eslint-disable-next-line no-console
         console.log("SP_WIDGET_STATE:: was added and loaded just initial");
 
         initializeWidget(addedScript);
       } else {
+        // eslint-disable-next-line no-console
         console.log(
           "SP_WIDGET_STATE:: was added not loaded wait to load and then initial"
         );

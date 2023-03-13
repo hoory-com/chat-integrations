@@ -16,7 +16,11 @@
     "clean": "rimraf lib my-react-package-*.tgz",
     "watch": "rollup -cw",
     "link": "echo \"No link needed\"",
-    "publish-npm": "npm publish --access=public --latest"
+    "publish-npm": "npm publish --access=public --latest",
+    "format": "prettier --write \"{src,public,scripts}/**/*.(ts|js|tsx|jsx|json)\"",
+    "format:check": "prettier --check \"{src,public,scripts}/**/*.(ts|js|tsx|jsx|json)\"",
+    "lint": "eslint ./src --fix --ext .ts,.js,.tsx,.jsx",
+    "lint:check": "eslint ./src --ext .ts,.js,.tsx,jsx"
   },
   "keywords": [],
   "license": "MIT",

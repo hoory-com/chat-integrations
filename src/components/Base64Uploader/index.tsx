@@ -24,6 +24,8 @@ type Props = {
   isSkipped: boolean;
 };
 
+/* eslint-disable jsx-a11y/click-events-have-key-events, no-unsafe-optional-chaining, jsx-a11y/no-static-element-interactions */
+
 function Base64Uploader({
   sizeLimit,
   uploadedLogo,
