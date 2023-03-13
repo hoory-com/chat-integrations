@@ -2,7 +2,12 @@ import { FC } from "react";
 import styled from "styled-components";
 import { ButtonProps } from "antd/lib/button";
 import { Button } from "antd";
-import { ifProp, prop, theme, makeRgbaFromProp } from "styled-components-helpers";
+import {
+  ifProp,
+  prop,
+  theme,
+  makeRgbaFromProp,
+} from "styled-components-helpers";
 
 interface BtnProps {
   $width: string;

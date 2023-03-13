@@ -5,6 +5,7 @@ export const safeReadJson = (
   let result = defaultValue;
   try {
     result = JSON.parse(str);
+    // eslint-disable-next-line no-empty
   } catch (e) {}
 
   return result;
